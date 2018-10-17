@@ -6,8 +6,13 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
 class Processor: public TimeDependsObject 
 {
+public:
   virtual ~Processor() = default;
-  
-  virtual bool setOrder(const Order &order) = default;  
-}
+
+  virtual void process(const Order &order) = default;
+
+  virtual bool isFree() = default;
+
+  virtual Order free() = default;
+};
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP

@@ -13,7 +13,7 @@ class Generator : public TimeDependsObject
 public:
   virtual ~Generator() = default;
 
-  virtual Order getOrder() = default;
+  virtual Order createNewOrder() = default;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATOR_HPP
