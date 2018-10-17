@@ -12,6 +12,8 @@ class TimeDependsObject
 public:
   virtual ~TimeDependsObject() = default;
 
+  virtual unsigned long getTimeToNextEvent() = default;
+
   virtual void setTimer(const Timer &timer) = default;
 };
 
