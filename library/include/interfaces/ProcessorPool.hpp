@@ -6,7 +6,7 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORPOOL_HPP
 
 #include "Processor.hpp"
-#include "Order.hpp"
+#include "../OrderImpl.hpp"
 
 class ProcessorPool : public Processor
 {

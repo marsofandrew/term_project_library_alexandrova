@@ -1,9 +1,9 @@
 #include <algorithm>
-#include "Worker.hpp"
-#include "Buffer.hpp"
-#include "Order.hpp"
+#include "../include/Worker.hpp"
+#include "../include/interfaces/Buffer.hpp"
+#include "../include/OrderImpl.hpp"
 
-Worker::Worker(const GeneratorPool &generatorsPool, const ProcessorPool &processorsPool, const Buffer &buffer,
+Worker::Worker(const Generator &generatorsPool, const ProcessorPool &processorsPool, const Buffer &buffer,
                const Timer &timer, const WorkCondition &workCondition) :
   generatorsPool_(generatorsPool),
   processorsPool_(processorsPool),
@@ -20,8 +20,8 @@ void Worker::run()
       buffer_.add(generatorsPool_.createNewOrder());
     }
     if (processorsPool_.hasFreeProcessor() && !buffer_.isEmpty()) {
-      Order order = buffer_.get();
-	  buffer_.pop();
+      OrderImpl order = buffer_.get();
+      buffer_.pop();
       processorsPool_.process(order);
     }
   }
@@ -30,7 +30,7 @@ void Worker::run()
 unsigned long Worker::getTimeToNextEvent()
 {
   unsigned long time = generatorsPool_.getTimeToNextEvent();
-  if (!buffer_.isEmpty()){
+  if (!buffer_.isEmpty()) {
     unsigned long time2 = generatorsPool_.getTimeToNextEvent();
     return std::min(time, time2);
   }

@@ -6,27 +6,28 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFERIMPL_HPP
 
 #include <list>
-#include "Order.hpp"
-#include "Buffer.hpp"
+#include "OrderImpl.hpp"
+#include "interfaces/Buffer.hpp"
+
 class BufferImpl: public Buffer
 {
 public:
   BufferImpl(const std::size_t size);
   
-  bool add(const Order order) override;
+  bool add(OrderImpl order) override;
 
   void pop() override;
   
-  Order get() override;
+  OrderImpl get() const override;
 
   bool isEmpty() override;
  
  private:
-   std::list<Order> queue_;
+   std::list<OrderImpl> queue_;
    std::size_t size_;
-   std::list<Order> refused_;
+   std::list<OrderImpl> refused_;
    
-   bool addWhenBufferFull(const Order &order);
+   bool addWhenBufferFull(const OrderImpl &order);
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFERIMPL_HPP

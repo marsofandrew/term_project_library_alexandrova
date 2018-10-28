@@ -5,11 +5,11 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKER_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKER_HPP
 
-#include "Timer.hpp"
-#include "Generator.hpp"
-#include "ProcessorPool.hpp"
-#include "Buffer.hpp"
-#include "WorkCondition.hpp"
+#include "interfaces/Timer.hpp"
+#include "interfaces/Generator.hpp"
+#include "interfaces/ProcessorPool.hpp"
+#include "interfaces/Buffer.hpp"
+#include "interfaces/WorkCondition.hpp"
 
 class Worker
 {

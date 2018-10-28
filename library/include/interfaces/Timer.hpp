@@ -10,7 +10,9 @@ class Timer
 public:
   virtual ~Timer() = default;
 
-  virtual void add(unsigned long addTime)= default;
+  virtual void add(unsigned long addTime) = default;
+
+  virtual unsigned long getCurrentTime() const = default;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_TIMER_HPP

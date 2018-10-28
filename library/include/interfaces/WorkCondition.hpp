@@ -7,7 +7,7 @@
 
 #include "Timer.hpp"
 #include "ProcessorPool.hpp"
-#include "GeneratorPool.hpp"
+#include "../GeneratorPool.hpp"
 #include "Buffer.hpp"
 
 class WorkCondition
@@ -15,7 +15,7 @@ class WorkCondition
 public:
   virtual ~WorkCondition() = default;
 
-  virtual bool operator()(const Timer &timer, const GeneratorPool &generatorPool, const ProcessorPool &processorPool,
+  virtual bool operator()(const Timer &timer, const Generator &generatorPool, const ProcessorPool &processorPool,
                           const Buffer &buffer) = default;
 };
 

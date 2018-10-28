@@ -5,7 +5,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORPOOL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORPOOL_HPP
 
-#include "Generator.hpp"
+#include "interfaces/Generator.hpp"
 
 class GeneratorPool : public Generator
 {
