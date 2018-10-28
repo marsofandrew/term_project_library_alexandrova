@@ -17,9 +17,11 @@ public:
    * @param order an order to add to the buffer
    * @return bool. True if Order is added, false - if buffer don't add the order
    */
-  virtual bool add(const Order &order) = default;
+  virtual bool add(const Order order) = default;
 
-  virtual Order pop() = default;
+  virtual void pop() = default;
+  
+  virtual Order get() const = default;
 
   virtual bool isEmpty() = default;
 };

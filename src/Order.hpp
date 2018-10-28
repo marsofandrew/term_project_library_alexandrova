@@ -6,11 +6,14 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_ORDER_HPP
 class Order {
 public:
-  Order(int number, int priority, int sourceGenerator) = default;
+  Order(int number, int priority, const Generator &sourceGenerator);
   virtual ~Order() = default;
+  int getNumber();
+  int getPriority();
+  int getGenerator();
 private:
   int number_;
   int priority_;
-  int sourceGenerator_;
+  Generator sourceGenerator_;
 };
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_ORDER_HPP

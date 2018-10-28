@@ -6,7 +6,7 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKER_HPP
 
 #include "Timer.hpp"
-#include "GeneratorPool.hpp"
+#include "Generator.hpp"
 #include "ProcessorPool.hpp"
 #include "Buffer.hpp"
 #include "WorkCondition.hpp"
@@ -14,7 +14,7 @@
 class Worker
 {
 public:
-  Worker(const GeneratorPool &generatorsPool, const ProcessorPool &processorsPool, const Buffer &buffer,
+  Worker(const Generator &generatorsPool, const ProcessorPool &processorsPool, const Buffer &buffer,
          const Timer &timer, const WorkCondition &workCondition);
 
   virtual ~Worker() = default;
@@ -22,7 +22,7 @@ public:
   void run();
 
 private:
-  GeneratorPool generatorsPool_;
+  Generator generatorsPool_;
   ProcessorPool processorsPool_;
   Buffer buffer_;
   Timer timer_;

@@ -20,7 +20,8 @@ void Worker::run()
       buffer_.add(generatorsPool_.createNewOrder());
     }
     if (processorsPool_.hasFreeProcessor() && !buffer_.isEmpty()) {
-      Order order = buffer_.pop();
+      Order order = buffer_.get();
+	  buffer_.pop();
       processorsPool_.process(order);
     }
   }
