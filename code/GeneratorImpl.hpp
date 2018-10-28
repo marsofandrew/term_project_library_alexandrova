@@ -6,8 +6,9 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORIMPL_HPP
 
 #include "../library/include/interfaces/Generator.hpp"
-#include "../library/include/OrderImpl.hpp"
 #include "../library/include/interfaces/Timer.hpp"
+
+class Order;
 
 class GeneratorImpl : public Generator
 {

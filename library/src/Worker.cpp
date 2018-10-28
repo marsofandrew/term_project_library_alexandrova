@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "../include/Worker.hpp"
 #include "../include/interfaces/Buffer.hpp"
-#include "../include/OrderImpl.hpp"
+#include "../include/Order.hpp"
 
 Worker::Worker(const Generator &generatorsPool, const ProcessorPool &processorsPool, const Buffer &buffer,
                const Timer &timer, const WorkCondition &workCondition) :
@@ -20,7 +20,7 @@ void Worker::run()
       buffer_.add(generatorsPool_.createNewOrder());
     }
     if (processorsPool_.hasFreeProcessor() && !buffer_.isEmpty()) {
-      OrderImpl order = buffer_.get();
+      Order order = buffer_.get();
       buffer_.pop();
       processorsPool_.process(order);
     }

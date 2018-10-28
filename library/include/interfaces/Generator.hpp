@@ -8,6 +8,8 @@
 #include "TimeDependsObject.hpp"
 #include "Order.hpp"
 
+class Order;
+
 class Generator : public TimeDependsObject
 {
 public:

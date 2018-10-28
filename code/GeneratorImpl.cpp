@@ -3,7 +3,7 @@
 //
 
 #include "GeneratorImpl.hpp"
-#include "../library/include/OrderImpl.hpp"
+#include "../library/include/Order.hpp"
 #include <stdexcept>
 
 GeneratorImpl::GeneratorImpl(int orderPriority, unsigned long minTime, unsigned long maxTime) :
@@ -22,7 +22,7 @@ Order GeneratorImpl::createNewOrder()
 {
   if (getTimeToNextEvent() <= 0) {
     timeOfNextOrder_ = timer_.getCurrentTime() + getTimeToNextOrder();
-    return OrderImpl(numberOfOrder_++, orderPriority_, *this);
+    return Order(numberOfOrder_++, orderPriority_, *this);
   }
 }
 

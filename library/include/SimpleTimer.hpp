@@ -7,7 +7,7 @@
 
 #include "interfaces/Timer.hpp"
 
-class TimerImpl : public Timer
+class SimpleTimer : public Timer
 {
 
 };

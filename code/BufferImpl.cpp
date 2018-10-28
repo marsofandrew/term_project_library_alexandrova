@@ -1,9 +1,9 @@
-#include "../include/BufferImpl.hpp"
+#include "BufferImpl.hpp"
 
 BufferImpl::BufferImpl(const std::size_t size) :
   size_(size) {}
 
-bool BufferImpl::add(const OrderImpl order)
+bool BufferImpl::add(const Order& order)
 {
   if (queue_.size() >= size_) {
     return addWhenBufferFull(order);
@@ -18,7 +18,7 @@ void BufferImpl::pop()
   queue_.pop_front();
 }
 
-OrderImpl BufferImpl::get() const
+Order BufferImpl::get() const
 {
   return queue_.front();
 }
@@ -28,7 +28,7 @@ bool BufferImpl::isEmpty()
   return queue_.empty();
 }
 
-bool BufferImpl::addWhenBufferFull(const OrderImpl &order)
+bool BufferImpl::addWhenBufferFull(const Order &order)
 {
   int currentPriority = order.getPriority();
 

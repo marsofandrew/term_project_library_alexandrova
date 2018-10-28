@@ -6,29 +6,30 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_ORDERIMPL_HPP
 
 #include "interfaces/Generator.hpp"
-#include "interfaces/Order.hpp"
 
-class OrderImpl : public Order
+class Order
 {
 public:
 
-  OrderImpl(long customNumber, int priority, const Generator &sourceGenerator);
+  Order(long customNumber, int priority, const Generator &sourceGenerator);
 
-  virtual ~OrderImpl() = default;
+  virtual ~Order() = default;
 
-  unsigned long getId() const override;
+  unsigned long getId() const;
 
-  int getPriority() const override;
+  int getPriority() const;
 
-  Generator getGenerator() const override;
+  Generator getGenerator() const;
 
-  long getNumber() const override;
+  long getNumber() const;
 
 private:
   unsigned long id_;
   long customNumber_;
   int priority_;
   Generator sourceGenerator_;
+
+  static unsigned long ID;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_ORDERIMPL_HPP
