@@ -11,7 +11,9 @@
 class ProcessorPool : public Processor
 {
 public:
-  virtual bool hasFreeProcessor() const = default;
+  virtual ~ProcessorPool() = default;
+
+  virtual bool hasFreeProcessor() const = 0;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORPOOL_HPP

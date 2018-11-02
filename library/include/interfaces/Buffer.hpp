@@ -5,6 +5,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFER_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFER_HPP
 
+#include <memory>
 #include "../Order.hpp"
 
 class Buffer
@@ -15,15 +16,15 @@ public:
   /**
    *
    * @param order an order to add to the buffer
-   * @return bool. True if Order is added, false - if buffer don't add the order
+   * @return Order. returned Order is refused Order
    */
-  virtual bool add(const Order& order) = default;
+  virtual std::shared_ptr<Order> add(const std::shared_ptr<Order> &order) = 0;
 
-  virtual void pop() = default;
-  
-  virtual Order get() const = default;
+  virtual void pop() = 0;
 
-  virtual bool isEmpty() = default;
+  virtual std::shared_ptr<Order> getElement() const = 0;
+
+  virtual bool isEmpty() = 0;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFER_HPP

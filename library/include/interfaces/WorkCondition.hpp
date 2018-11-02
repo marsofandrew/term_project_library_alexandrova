@@ -15,8 +15,10 @@ class WorkCondition
 public:
   virtual ~WorkCondition() = default;
 
-  virtual bool operator()(const Timer &timer, const Generator &generatorPool, const ProcessorPool &processorPool,
-                          const Buffer &buffer) = default;
+  virtual bool shouldContinue(const std::shared_ptr<Timer> &timer,
+                              const std::shared_ptr<GeneratorPool> &generatorPool,
+                              const std::shared_ptr<ProcessorPool> &processorPool,
+                              const std::shared_ptr<Buffer> &buffer) = 0;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKCONDITION_HPP

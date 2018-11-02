@@ -18,20 +18,20 @@ GeneratorImpl::GeneratorImpl(int orderPriority, unsigned long minTime, unsigned 
   }
 }
 
-Order GeneratorImpl::createNewOrder()
+std::shared_ptr<Order> GeneratorImpl::createNewOrder()
 {
   if (getTimeToNextEvent() <= 0) {
-    timeOfNextOrder_ = timer_.getCurrentTime() + getTimeToNextOrder();
-    return Order(numberOfOrder_++, orderPriority_, *this);
+    timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
+    return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this));
   }
 }
 
 unsigned long GeneratorImpl::getTimeToNextEvent() const
 {
-  return timeOfNextOrder_ - timer_.getCurrentTime();
+  return timeOfNextOrder_ - timer_->getCurrentTime();
 }
 
-void GeneratorImpl::setTimer(const Timer &timer)
+void GeneratorImpl::setTimer(const std::shared_ptr<Timer> &timer)
 {
   timer_ = timer;
 }

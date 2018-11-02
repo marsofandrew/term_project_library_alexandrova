@@ -12,22 +12,22 @@
 class BufferImpl: public Buffer
 {
 public:
-  BufferImpl(std::size_t size);
-  
-  bool add(const Order& order) override;
+  explicit BufferImpl(std::size_t size);
+
+  std::shared_ptr<Order> add(const std::shared_ptr<Order>& order) override;
 
   void pop() override;
-  
-  Order get() const override;
+
+  std::shared_ptr<Order> getElement() const override;
 
   bool isEmpty() override;
  
  private:
-   std::list<Order> queue_;
+   std::list<std::shared_ptr<Order>> queue_;
    std::size_t size_;
-   std::list<Order> refused_;
-   
-   bool addWhenBufferFull(const Order &order);
+   std::list<std::shared_ptr<Order>> refused_;
+
+  std::shared_ptr<Order> addWhenBufferFull(const std::shared_ptr<Order> &order);
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFERIMPL_HPP

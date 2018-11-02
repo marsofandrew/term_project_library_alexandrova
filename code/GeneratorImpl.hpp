@@ -15,11 +15,11 @@ class GeneratorImpl : public Generator
 public:
   GeneratorImpl(int orderPriority, unsigned long minTime, unsigned long maxTime);
 
-  Order createNewOrder() override;
+  std::shared_ptr<Order> createNewOrder() override;
 
   unsigned long getTimeToNextEvent() const override;
 
-  void setTimer(const Timer &timer) override;
+  void setTimer(const std::shared_ptr<Timer> &timer) override;
 
   unsigned long getId() const override ;
 
@@ -28,7 +28,7 @@ private:
   int orderPriority_;
   unsigned long minTime_;
   unsigned long maxTime_;
-  Timer timer_;
+  std::shared_ptr<Timer> timer_;
   unsigned long timeOfNextOrder_;
 
   unsigned long getTimeToNextOrder();

@@ -3,4 +3,4 @@
 //
 #include "../include/interfaces/Generator.hpp"
 
-static unsigned long Generator::ID = 0;
+unsigned long Generator::ID = 0;

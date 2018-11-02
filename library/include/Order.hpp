@@ -11,7 +11,7 @@ class Order
 {
 public:
 
-  Order(long customNumber, int priority, const Generator &sourceGenerator);
+  Order(long customNumber, int priority, const std::shared_ptr<Generator> &sourceGenerator);
 
   virtual ~Order() = default;
 
@@ -19,7 +19,7 @@ public:
 
   int getPriority() const;
 
-  Generator getGenerator() const;
+  std::shared_ptr<Generator> getGenerator() const;
 
   long getNumber() const;
 
@@ -27,7 +27,7 @@ private:
   unsigned long id_;
   long customNumber_;
   int priority_;
-  Generator sourceGenerator_;
+  std::shared_ptr<Generator> sourceGenerator_;
 
   static unsigned long ID;
 };

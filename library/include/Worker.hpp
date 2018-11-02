@@ -14,19 +14,22 @@
 class Worker
 {
 public:
-  Worker(const Generator &generatorsPool, const ProcessorPool &processorsPool, const Buffer &buffer,
-         const Timer &timer, const WorkCondition &workCondition);
+  Worker(const std::shared_ptr<GeneratorPool> &generatorsPool,
+         const std::shared_ptr<ProcessorPool> &processorsPool,
+         const std::shared_ptr<Buffer> &buffer,
+         const std::shared_ptr<Timer> &timer,
+         const std::shared_ptr<WorkCondition> &workCondition);
 
   virtual ~Worker() = default;
 
   void run();
 
 private:
-  Generator generatorsPool_;
-  ProcessorPool processorsPool_;
-  Buffer buffer_;
-  Timer timer_;
-  WorkCondition condition_;
+  std::shared_ptr<GeneratorPool> generatorsPool_;
+  std::shared_ptr<ProcessorPool> processorsPool_;
+  std::shared_ptr<Buffer> buffer_;
+  std::shared_ptr<Timer> timer_;
+  std::shared_ptr<WorkCondition> condition_;
 
   unsigned long getTimeToNextEvent();
 

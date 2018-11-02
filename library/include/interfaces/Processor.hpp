@@ -4,15 +4,20 @@
 
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
-class Processor: public TimeDependsObject 
+
+#include "TimeDependsObject.hpp"
+#include "../Order.hpp"
+
+class Processor : public TimeDependsObject
 {
 public:
   virtual ~Processor() = default;
 
-  virtual void process(const OrderImpl &order) = default;
+  virtual void process(const std::shared_ptr<Order> &order) = 0;
 
-  virtual bool isFree() = default;
+  virtual bool isFree() = 0;
 
-  virtual OrderImpl free() = default;
+  virtual std::shared_ptr<Order> free() = 0;
 };
+
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
