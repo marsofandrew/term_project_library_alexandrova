@@ -7,9 +7,10 @@
 
 #include "interfaces/Timer.hpp"
 #include "interfaces/Generator.hpp"
-#include "interfaces/ProcessorPool.hpp"
+#include "ProcessorPool.hpp"
 #include "interfaces/Buffer.hpp"
 #include "interfaces/WorkCondition.hpp"
+#include "interfaces/Logger.hpp"
 
 class Worker
 {
@@ -30,6 +31,7 @@ private:
   std::shared_ptr<Buffer> buffer_;
   std::shared_ptr<Timer> timer_;
   std::shared_ptr<WorkCondition> condition_;
+  std::shared_ptr<Logger> logger_;
 
   unsigned long getTimeToNextEvent();
 

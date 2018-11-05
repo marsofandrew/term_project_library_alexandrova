@@ -20,13 +20,18 @@ void Worker::run()
   while (condition_->shouldContinue(timer_, generatorsPool_, processorsPool_, buffer_)) {
     unsigned long time = getTimeToNextEvent();
     timer_->add(time);
-    if (generatorsPool_->getTimeToNextEvent() == 0) {
+    if (generatorsPool_->getTimeToNextEvent() <= 0) {
       auto order = buffer_->add(generatorsPool_->createNewOrder());
       if (order != nullptr) {
         //TODO:
       }
     }
-    if (processorsPool_->hasFreeProcessor() && !buffer_->isEmpty()) {
+
+    if (processorsPool_->hasFinishedProcesses()) {
+      std::shared_ptr<Order> order = processorsPool_->free();
+    }
+
+    if (processorsPool_->isFree() && !buffer_->isEmpty()) {
       std::shared_ptr<Order> order = buffer_->getElement();
       buffer_->pop();
       processorsPool_->process(order);
@@ -38,7 +43,7 @@ unsigned long Worker::getTimeToNextEvent()
 {
   unsigned long time = generatorsPool_->getTimeToNextEvent();
   if (!buffer_->isEmpty()) {
-    unsigned long time2 = generatorsPool_->getTimeToNextEvent();
+    unsigned long time2 = processorsPool_->getTimeToNextEvent();
     return std::min(time, time2);
   }
   return time;

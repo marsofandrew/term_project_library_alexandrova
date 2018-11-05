@@ -47,3 +47,7 @@ std::shared_ptr<Order> GeneratorPool::createNewOrder()
   return (*element)->createNewOrder();
 }
 
+std::vector<std::shared_ptr<Generator>> GeneratorPool::getGenerators() const
+{
+  return generators_;
+}

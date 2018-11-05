@@ -6,7 +6,7 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKCONDITION_HPP
 
 #include "Timer.hpp"
-#include "ProcessorPool.hpp"
+#include "../ProcessorPool.hpp"
 #include "../GeneratorPool.hpp"
 #include "Buffer.hpp"
 

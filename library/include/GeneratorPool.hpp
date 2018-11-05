@@ -14,15 +14,17 @@ public:
 
   explicit GeneratorPool(const std::vector<std::shared_ptr<Generator>> &generators);
 
-  std::shared_ptr<Order> createNewOrder() override;
+  virtual ~GeneratorPool() = default;
 
-  unsigned long getId() const override;
+  virtual std::shared_ptr<Order> createNewOrder();
 
-  unsigned long getTimeToNextEvent() const override;
+  virtual unsigned long getId() const;
 
-  void setTimer(const std::shared_ptr<Timer> &timer) override;
+  virtual unsigned long getTimeToNextEvent() const;
 
-  std::shared_ptr<Generator> getGenerator(const std::size_t index) const;
+  virtual void setTimer(const std::shared_ptr<Timer> &timer);
+
+  virtual std::vector<std::shared_ptr<Generator>> getGenerators() const;
 
 private:
   std::vector<std::shared_ptr<Generator>> generators_;

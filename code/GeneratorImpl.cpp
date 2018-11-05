@@ -22,13 +22,14 @@ std::shared_ptr<Order> GeneratorImpl::createNewOrder()
 {
   if (getTimeToNextEvent() <= 0) {
     timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
-    return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this));
+    return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
+                                   timer_->getCurrentTime());
   }
 }
 
 unsigned long GeneratorImpl::getTimeToNextEvent() const
 {
-  return timeOfNextOrder_ - timer_->getCurrentTime();
+  return timeOfNextOrder_ == 0 ? 0 : timeOfNextOrder_ - timer_->getCurrentTime();
 }
 
 void GeneratorImpl::setTimer(const std::shared_ptr<Timer> &timer)

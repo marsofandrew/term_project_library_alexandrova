@@ -21,7 +21,7 @@ public:
 
   void setTimer(const std::shared_ptr<Timer> &timer) override;
 
-  unsigned long getId() const override ;
+  unsigned long getId() const override;
 
 private:
   unsigned long id_;
