@@ -19,7 +19,8 @@ public:
          const std::shared_ptr<ProcessorPool> &processorsPool,
          const std::shared_ptr<Buffer> &buffer,
          const std::shared_ptr<Timer> &timer,
-         const std::shared_ptr<WorkCondition> &workCondition);
+         const std::shared_ptr<WorkCondition> &workCondition,
+         const std::shared_ptr<Logger> logger);
 
   virtual ~Worker() = default;
 

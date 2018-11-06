@@ -4,20 +4,27 @@
 
 #include "ProcessorImpl.hpp"
 
-ProcessorImpl::ProcessorImpl(unsigned long minWorkTime, unsigned long maxWorkTime) :
+ProcessorImpl::ProcessorImpl(unsigned int lambda) :
   id_(ID++),
-  minWorkTime_(minWorkTime),
-  maxWorkTime_(maxWorkTime),
+  lambda_(lambda),
   order_(nullptr),
-  timer_(nullptr) {}
+  timer_(nullptr),
+  randomGenerator_(lambda)
+{
+  std::random_device rd;
+  gen_ = {rd()};
+}
 
 bool ProcessorImpl::process(const std::shared_ptr<Order> &order)
 {
-  if (!isFree()){
+  if (!isFree()) {
     return false;
   }
   order_ = order;
-  timeOfEvent_ = timer_->getCurrentTime() + getProcessTime();
+  unsigned long processTime = getProcessTime();
+  order_->setStartProcessTime(timer_->getCurrentTime());
+  order_->setProcessTime(processTime);
+  timeOfEvent_ = timer_->getCurrentTime() + processTime;
   return true;
 }
 
@@ -52,5 +59,5 @@ unsigned long ProcessorImpl::getTimeToNextEvent() const
 unsigned long ProcessorImpl::getProcessTime() const
 {
   double random = 0.5; //TODO: generate real random
-  return static_cast<unsigned long>(minWorkTime_ + random * (maxWorkTime_ - minWorkTime_));
+  return randomGenerator_(gen_);
 }

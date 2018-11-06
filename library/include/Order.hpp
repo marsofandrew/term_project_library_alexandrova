@@ -24,12 +24,18 @@ public:
 
   long getNumber() const;
 
+  void setStartProcessTime(unsigned long startProcessTime);
+
+  void setProcessTime(unsigned long processTime);
+
 private:
   unsigned long id_;
   long customNumber_;
   int priority_;
   std::shared_ptr<Generator> sourceGenerator_;
   unsigned long generatedTime_;
+  unsigned long startProcessTime_;
+  unsigned long processTime_;
   static unsigned long ID;
 };
 

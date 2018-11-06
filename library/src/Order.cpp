@@ -9,7 +9,9 @@ Order::Order(long customNumber, int priority,
   customNumber_(customNumber),
   priority_(priority),
   sourceGenerator_(sourceGenerator),
-  generatedTime_(generatedTime){}
+  generatedTime_(generatedTime),
+  startProcessTime_(0),
+  processTime_(0) {}
 
 std::shared_ptr<Generator> Order::getGenerator() const
 {
@@ -29,6 +31,16 @@ int Order::getPriority() const
 long Order::getNumber() const
 {
   return customNumber_;
+}
+
+void Order::setProcessTime(unsigned long processTime)
+{
+  processTime_ = processTime;
+}
+
+void Order::setStartProcessTime(unsigned long startProcessTime)
+{
+  startProcessTime_ = startProcessTime;
 }
 
 unsigned long Order::ID = 0;

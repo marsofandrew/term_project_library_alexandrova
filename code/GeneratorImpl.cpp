@@ -11,8 +11,11 @@ GeneratorImpl::GeneratorImpl(int orderPriority, unsigned long minTime, unsigned 
   orderPriority_(orderPriority),
   minTime_(minTime),
   maxTime_(maxTime),
-  numberOfOrder_(0)
+  numberOfOrder_(0),
+  randomGenerator_(minTime, maxTime)
 {
+  std::random_device rd;
+  gen_ = {rd()};
   if (maxTime_ < minTime) {
     throw std::invalid_argument("maxTime must be not less than minTime");
   }
@@ -39,8 +42,7 @@ void GeneratorImpl::setTimer(const std::shared_ptr<Timer> &timer)
 
 unsigned long GeneratorImpl::getTimeToNextOrder()
 {
-  double random = 0.5; //TODO: generate real random
-  return static_cast<unsigned long>(minTime_ + random * (maxTime_ - minTime_));
+  return randomGenerator_(gen_);
 }
 
 unsigned long GeneratorImpl::getId() const

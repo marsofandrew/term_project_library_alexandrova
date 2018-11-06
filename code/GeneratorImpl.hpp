@@ -5,6 +5,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORIMPL_HPP
 
+#include <random>
 #include "../library/include/interfaces/Generator.hpp"
 #include "../library/include/interfaces/Timer.hpp"
 
@@ -30,10 +31,10 @@ private:
   unsigned long maxTime_;
   std::shared_ptr<Timer> timer_;
   unsigned long timeOfNextOrder_;
-
-  unsigned long getTimeToNextOrder();
-
   unsigned long numberOfOrder_;
+  std::uniform_int_distribution randomGenerator_;
+  std::mt19937 gen_;
+  unsigned long getTimeToNextOrder();
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORIMPL_HPP

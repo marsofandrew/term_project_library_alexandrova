@@ -8,12 +8,17 @@ Worker::Worker(const std::shared_ptr<GeneratorPool> &generatorsPool,
                const std::shared_ptr<ProcessorPool> &processorsPool,
                const std::shared_ptr<Buffer> &buffer,
                const std::shared_ptr<Timer> &timer,
-               const std::shared_ptr<WorkCondition> &workCondition) :
+               const std::shared_ptr<WorkCondition> &workCondition,
+               const std::shared_ptr<Logger> logger) :
   generatorsPool_(generatorsPool),
   processorsPool_(processorsPool),
   buffer_(buffer),
   timer_(timer),
-  condition_(workCondition) {}
+  condition_(workCondition),
+  logger_(logger)
+{
+  logger_->setTimer(timer_);
+}
 
 void Worker::run()
 {
@@ -21,14 +26,17 @@ void Worker::run()
     unsigned long time = getTimeToNextEvent();
     timer_->add(time);
     if (generatorsPool_->getTimeToNextEvent() <= 0) {
-      auto order = buffer_->add(generatorsPool_->createNewOrder());
+      std::shared_ptr<Order> orderGenerated = generatorsPool_->createNewOrder();
+      logger_->addCratedOrder(orderGenerated);
+      auto order = buffer_->add(orderGenerated);
       if (order != nullptr) {
-        //TODO:
+        logger_->addRefusedOrder(order);
       }
     }
 
     if (processorsPool_->hasFinishedProcesses()) {
       std::shared_ptr<Order> order = processorsPool_->free();
+      logger_->addProcessedOrder(order);
     }
 
     if (processorsPool_->isFree() && !buffer_->isEmpty()) {
