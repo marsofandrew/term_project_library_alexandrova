@@ -33,9 +33,9 @@ private:
   long customNumber_;
   int priority_;
   std::shared_ptr<Generator> sourceGenerator_;
-  unsigned long generatedTime_;
-  unsigned long startProcessTime_;
-  unsigned long processTime_;
+  Timer::time generatedTime_;
+  Timer::time startProcessTime_;
+  Timer::time processTime_;
   static unsigned long ID;
 };
 

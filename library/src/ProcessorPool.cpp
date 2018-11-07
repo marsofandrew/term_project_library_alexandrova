@@ -44,7 +44,7 @@ bool ProcessorPool::process(const std::shared_ptr<Order> &order)
   return false;
 }
 
-unsigned long ProcessorPool::getTimeToNextEvent() const
+Timer::time ProcessorPool::getTimeToNextEvent() const
 {
   std::vector<unsigned long> times;
   std::transform(processors_.begin(), processors_.end(), std::back_inserter(times),

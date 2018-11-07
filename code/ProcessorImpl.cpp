@@ -4,7 +4,7 @@
 
 #include "ProcessorImpl.hpp"
 
-ProcessorImpl::ProcessorImpl(unsigned int lambda) :
+ProcessorImpl::ProcessorImpl(unsigned double lambda) :
   id_(ID++),
   lambda_(lambda),
   order_(nullptr),
@@ -21,7 +21,7 @@ bool ProcessorImpl::process(const std::shared_ptr<Order> &order)
     return false;
   }
   order_ = order;
-  unsigned long processTime = getProcessTime();
+  Timer::time processTime = getProcessTime();
   order_->setStartProcessTime(timer_->getCurrentTime());
   order_->setProcessTime(processTime);
   timeOfEvent_ = timer_->getCurrentTime() + processTime;
@@ -51,13 +51,12 @@ bool ProcessorImpl::isFree()
   return order_ == nullptr;
 }
 
-unsigned long ProcessorImpl::getTimeToNextEvent() const
+Timer::time ProcessorImpl::getTimeToNextEvent() const
 {
   return timeOfEvent_ == 0 ? 0 : timeOfEvent_ - timer_->getCurrentTime();
 }
 
-unsigned long ProcessorImpl::getProcessTime() const
+Timer::time ProcessorImpl::getProcessTime() const
 {
-  double random = 0.5; //TODO: generate real random
   return randomGenerator_(gen_);
 }

@@ -13,7 +13,7 @@ class TimeDependsObject
 public:
   virtual ~TimeDependsObject() = default;
 
-  virtual unsigned long getTimeToNextEvent() const = 0;
+  virtual Timer::time getTimeToNextEvent() const = 0;
 
   virtual void setTimer(const std::shared_ptr<Timer> &timer) = 0;
 };

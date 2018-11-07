@@ -25,8 +25,10 @@ public:
   virtual std::vector<std::shared_ptr<Order>> freeAll();
 
   virtual unsigned long getId() const;
+  
+  virtual std::shared_ptr<Processor> getFreeProcesor() const;
 
-  virtual unsigned long getTimeToNextEvent() const;
+  virtual Timer::time getTimeToNextEvent() const;
 
   virtual bool hasFinishedProcesses() const;
 

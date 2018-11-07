@@ -21,9 +21,9 @@ void GeneratorPool::setTimer(const std::shared_ptr<Timer> &timer)
   });
 }
 
-unsigned long GeneratorPool::getTimeToNextEvent() const
+Timer::time GeneratorPool::getTimeToNextEvent() const
 {
-  std::vector<unsigned long> times;
+  std::vector<Timer::time> times;
   std::transform(generators_.begin(), generators_.end(), std::back_inserter(times),
                  [](const std::shared_ptr<Generator> &generator)
                  {

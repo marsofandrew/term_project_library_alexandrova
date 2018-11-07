@@ -34,7 +34,7 @@ private:
   std::shared_ptr<WorkCondition> condition_;
   std::shared_ptr<Logger> logger_;
 
-  unsigned long getTimeToNextEvent();
+  Timer::time getTimeToNextEvent();
 
 };
 

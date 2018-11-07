@@ -23,31 +23,34 @@ Worker::Worker(const std::shared_ptr<GeneratorPool> &generatorsPool,
 void Worker::run()
 {
   while (condition_->shouldContinue(timer_, generatorsPool_, processorsPool_, buffer_)) {
-    unsigned long time = getTimeToNextEvent();
+    Timer::time time = getTimeToNextEvent();
     timer_->add(time);
     if (generatorsPool_->getTimeToNextEvent() <= 0) {
       std::shared_ptr<Order> orderGenerated = generatorsPool_->createNewOrder();
       logger_->addCratedOrder(orderGenerated);
       auto order = buffer_->add(orderGenerated);
       if (order != nullptr) {
-        logger_->addRefusedOrder(order);
-      }
+        logger_->sendRefusedOrder(order);
+      } else {
+		logger_->sendBufferedOrder(order);
+	  }
     }
 
     if (processorsPool_->hasFinishedProcesses()) {
       std::shared_ptr<Order> order = processorsPool_->free();
-      logger_->addProcessedOrder(order);
+      logger_->sendProcessedOrder(order);
     }
 
     if (processorsPool_->isFree() && !buffer_->isEmpty()) {
       std::shared_ptr<Order> order = buffer_->getElement();
+	  logger_->sendGetOrderFromBuffer(order);
       buffer_->pop();
       processorsPool_->process(order);
     }
   }
 }
 
-unsigned long Worker::getTimeToNextEvent()
+Timer::time Worker::getTimeToNextEvent()
 {
   unsigned long time = generatorsPool_->getTimeToNextEvent();
   if (!buffer_->isEmpty()) {

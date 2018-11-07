@@ -3,16 +3,17 @@
 //
 
 #include "../include/SimpleTimer.hpp"
+#include "../include/interfaces/Timer.hpp"
 
-SimpleTimer::SimpleTimer(unsigned long startTime) :
+SimpleTimer::SimpleTimer(Timer::time startTime) :
   time_(startTime) {}
 
-void SimpleTimer::add(unsigned long addTime)
+void SimpleTimer::add(Timer::time addTime)
 {
   time_ += addTime;
 }
 
-unsigned long SimpleTimer::getCurrentTime() const
+Timer::time SimpleTimer::getCurrentTime() const
 {
   return time_;
 }

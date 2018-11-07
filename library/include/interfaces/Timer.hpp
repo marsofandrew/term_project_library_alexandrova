@@ -8,11 +8,13 @@
 class Timer
 {
 public:
+  using time = double;
+
   virtual ~Timer() = default;
 
-  virtual void add(unsigned long addTime) = 0;
+  virtual void add(Timer::time addTime) = 0;
 
-  virtual unsigned long getCurrentTime() const = 0;
+  virtual Timer::time getCurrentTime() const = 0;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_TIMER_HPP

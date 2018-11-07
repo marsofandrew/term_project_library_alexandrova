@@ -8,11 +8,12 @@
 #include <random>
 #include "../library/include/interfaces/Processor.hpp"
 #include "../library/include/Order.hpp"
+#include "../library/include/interfaces/Timer.hpp"
 
 class ProcessorImpl : public Processor
 {
 public:
-  ProcessorImpl(/*unsigned long minWorkTime, unsigned long maxWorkTime*/ unsigned int lambda);
+  ProcessorImpl(unsigned double lambda);
 
   bool process(const std::shared_ptr<Order> &order) override;
 
@@ -22,23 +23,21 @@ public:
 
   unsigned long getId() const override;
 
-  unsigned long getTimeToNextEvent() const override;
+  Timer::time getTimeToNextEvent() const override;
 
   void setTimer(const std::shared_ptr<Timer> &timer) override;
 
 private:
   unsigned long id_;
-  //unsigned long minWorkTime_;
-  //unsigned long maxWorkTime_;
-  unsigned int lambda_;
+  unsigned double lambda_;
   std::shared_ptr<Order> order_;
   std::shared_ptr<Timer> timer_;
-  unsigned long timeOfEvent_;
+  Timer::time timeOfEvent_;
   std::exponential_distribution randomGenerator_;
   std::mt19937 gen_;
 
 
-  unsigned long getProcessTime() const;
+  Timer::time getProcessTime() const;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORIMPL_HPP

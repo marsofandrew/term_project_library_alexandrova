@@ -20,7 +20,7 @@ public:
 
   virtual unsigned long getId() const;
 
-  virtual unsigned long getTimeToNextEvent() const;
+  virtual Timer::time getTimeToNextEvent() const;
 
   virtual void setTimer(const std::shared_ptr<Timer> &timer);
 

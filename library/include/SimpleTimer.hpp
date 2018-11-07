@@ -12,14 +12,14 @@ class SimpleTimer : public Timer
 public:
   SimpleTimer() = default;
 
-  explicit SimpleTimer(unsigned long startTime);
+  explicit SimpleTimer(Timer::time startTime);
 
-  void add(unsigned long addTime) override;
+  void add(Timer::time addTime) override;
 
-  unsigned long getCurrentTime() const override;
+  Timer::time getCurrentTime() const override;
 
 private:
-  unsigned long time_;
+  Timer::time time_;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_TIMERIMPL_HPP
