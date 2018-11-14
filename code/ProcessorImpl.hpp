@@ -13,7 +13,7 @@
 class ProcessorImpl : public Processor
 {
 public:
-  ProcessorImpl(unsigned double lambda);
+  explicit ProcessorImpl(unsigned double lambda);
 
   bool process(const std::shared_ptr<Order> &order) override;
 
