@@ -6,11 +6,12 @@
 #include "../library/include/Order.hpp"
 #include <stdexcept>
 
-GeneratorImpl::GeneratorImpl(int orderPriority, unsigned long minTime, unsigned long maxTime) :
+GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time maxTime) :
   id_(ID++),
   orderPriority_(orderPriority),
   minTime_(minTime),
   maxTime_(maxTime),
+  amount_(0),
   numberOfOrder_(0),
   randomGenerator_(minTime, maxTime)
 {
@@ -24,6 +25,7 @@ GeneratorImpl::GeneratorImpl(int orderPriority, unsigned long minTime, unsigned 
 std::shared_ptr<Order> GeneratorImpl::createNewOrder()
 {
   if (getTimeToNextEvent() <= 0) {
+	amount_++;
     timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
     return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
                                    timer_->getCurrentTime());
@@ -39,13 +41,17 @@ void GeneratorImpl::setTimer(const std::shared_ptr<Timer> &timer)
 {
   timer_ = timer;
 }
-
-unsigned long GeneratorImpl::getTimeToNextOrder()
+std::size_t GeneratorImpl::getAmountOfGeneratedOrders() const
 {
-  return randomGenerator_(gen_);
+  return amount_;
 }
 
 unsigned long GeneratorImpl::getId() const
 {
   return id_;
+}
+
+Timer::time GeneratorImpl::getTimeToNextOrder()
+{
+  return randomGenerator_(gen_);
 }

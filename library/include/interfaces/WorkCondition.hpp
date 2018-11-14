@@ -18,7 +18,7 @@ public:
   virtual bool shouldContinue(const std::shared_ptr<Timer> &timer,
                               const std::shared_ptr<GeneratorPool> &generatorPool,
                               const std::shared_ptr<ProcessorPool> &processorPool,
-                              const std::shared_ptr<Buffer> &buffer) = 0;
+                              const std::shared_ptr<Buffer> &buffer) const = 0;
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKCONDITION_HPP
