@@ -19,6 +19,8 @@ public:
 
   virtual unsigned long getId() const = 0;
 
+  virtual std::size_t getAmountOfGeneratedOrders() const = 0;
+
 protected:
   static unsigned long ID;
 };

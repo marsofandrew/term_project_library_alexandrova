@@ -27,7 +27,7 @@ void Worker::run()
     timer_->add(time);
     if (generatorsPool_->getTimeToNextEvent() <= 0) {
       std::shared_ptr<Order> orderGenerated = generatorsPool_->createNewOrder();
-      logger_->addCratedOrder(orderGenerated);
+      logger_->sendCratedOrder(orderGenerated);
       auto order = buffer_->add(orderGenerated);
       if (order != nullptr) {
         logger_->sendRefusedOrder(order);

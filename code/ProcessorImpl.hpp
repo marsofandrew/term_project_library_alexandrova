@@ -27,9 +27,12 @@ public:
 
   void setTimer(const std::shared_ptr<Timer> &timer) override;
 
+  std::size_t getAmountOfProcessedOrders() const override;
+
 private:
   unsigned long id_;
   unsigned double lambda_;
+  std::size_t amount_;
   std::shared_ptr<Order> order_;
   std::shared_ptr<Timer> timer_;
   Timer::time timeOfEvent_;

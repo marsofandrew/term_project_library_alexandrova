@@ -33,12 +33,12 @@ long Order::getNumber() const
   return customNumber_;
 }
 
-void Order::setProcessTime(unsigned long processTime)
+void Order::setProcessTime(Timer::time processTime)
 {
   processTime_ = processTime;
 }
 
-void Order::setStartProcessTime(unsigned long startProcessTime)
+void Order::setStartProcessTime(Timer::time startProcessTime)
 {
   startProcessTime_ = startProcessTime;
 }

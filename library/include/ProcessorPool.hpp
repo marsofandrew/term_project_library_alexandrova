@@ -34,6 +34,7 @@ public:
 
   virtual void setTimer(const std::shared_ptr<Timer> &timer);
 
+  virtual std::size_t getAmountOfProcessedOrders() const;
 private:
   unsigned long id_;
   std::vector<std::shared_ptr<Processor>> processors_;

@@ -24,9 +24,9 @@ public:
 
   long getNumber() const;
 
-  void setStartProcessTime(unsigned long startProcessTime);
+  void setStartProcessTime(Timer::time startProcessTime);
 
-  void setProcessTime(unsigned long processTime);
+  void setProcessTime(Timer::time processTime);
 
 private:
   unsigned long id_;
