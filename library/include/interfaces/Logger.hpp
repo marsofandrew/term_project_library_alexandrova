@@ -29,6 +29,11 @@ public:
 
   virtual void sendGetOrderFromBuffer(const std::shared_ptr<Order> &order) = 0;
 
+  virtual void sendAddingOrderToBuffer(const std::shared_ptr<Order> &order) = 0;
+
+  virtual void sendOrderToProcessor(const std::shared_ptr<Order> &order,
+                                    const std::shared_ptr<Processor> &processor) = 0;
+
   virtual void sendMessage(const Type &type, const std::string &message) = 0;
 
   virtual void setTimer(const std::shared_ptr<Timer> &timer) = 0;

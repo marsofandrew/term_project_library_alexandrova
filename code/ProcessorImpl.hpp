@@ -7,13 +7,12 @@
 
 #include <random>
 #include "../library/include/interfaces/Processor.hpp"
-#include "../library/include/Order.hpp"
 #include "../library/include/interfaces/Timer.hpp"
 
 class ProcessorImpl : public Processor
 {
 public:
-  explicit ProcessorImpl(unsigned double lambda);
+  explicit ProcessorImpl(double lambda);
 
   bool process(const std::shared_ptr<Order> &order) override;
 
@@ -31,12 +30,12 @@ public:
 
 private:
   unsigned long id_;
-  unsigned double lambda_;
+  double lambda_;
   std::size_t amount_;
   std::shared_ptr<Order> order_;
   std::shared_ptr<Timer> timer_;
   Timer::time timeOfEvent_;
-  std::exponential_distribution randomGenerator_;
+  std::exponential_distribution<Timer::time> randomGenerator_;
   std::mt19937 gen_;
 
 

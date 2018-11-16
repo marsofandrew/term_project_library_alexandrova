@@ -24,7 +24,7 @@ public:
 
   unsigned long getId() const override;
 
-  std::size_t getAmountOfGeneratedOrders() const;
+  std::size_t getAmountOfGeneratedOrders() const override ;
 
 private:
   unsigned long id_;
@@ -35,8 +35,8 @@ private:
   std::shared_ptr<Timer> timer_;
   Timer::time timeOfNextOrder_;
   unsigned long numberOfOrder_;
-  std::uniform_real_distribution randomGenerator_;
   std::mt19937 gen_;
+  std::uniform_real_distribution<Timer::time> randomGenerator_;
   
   Timer::time getTimeToNextOrder();
 };

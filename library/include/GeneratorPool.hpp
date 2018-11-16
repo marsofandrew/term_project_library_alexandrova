@@ -26,6 +26,8 @@ public:
 
   virtual std::vector<std::shared_ptr<Generator>> getGenerators() const;
 
+  virtual std::size_t getAmountOfGeneratedOrders() const;
+
 private:
   std::vector<std::shared_ptr<Generator>> generators_;
   unsigned long id_;

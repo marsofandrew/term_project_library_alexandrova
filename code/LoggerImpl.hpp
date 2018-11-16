@@ -11,7 +11,7 @@
 class LoggerImpl : public Logger
 {
 public:
-  explicit LoggerImpl(std::shared_ptr<std::basic_ostream> &stream);
+  explicit LoggerImpl(std::ostream *stream);
 
   void sendCratedOrder(const std::shared_ptr<Order> &order) override;
 
@@ -23,13 +23,18 @@ public:
 
   void sendBufferedOrder(const std::shared_ptr<Order> &order) override;
 
+  void sendAddingOrderToBuffer(const std::shared_ptr<Order> &order) override;
+
+  void sendOrderToProcessor(const std::shared_ptr<Order> &order,
+                            const std::shared_ptr<Processor> &processor) override;
+
   void sendMessage(const Type &type, const std::string &message) override;
 
   void setTimer(const std::shared_ptr<Timer> &timer) override;
 
 private:
 
-  std::shared_ptr<std::basic_ostream> stream_;
+  std::ostream* stream_;
   std::shared_ptr<Timer> timer_;
 };
 

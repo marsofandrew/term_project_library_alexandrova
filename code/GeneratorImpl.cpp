@@ -5,6 +5,7 @@
 #include "GeneratorImpl.hpp"
 #include "../library/include/Order.hpp"
 #include <stdexcept>
+#include <random>
 
 GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time maxTime) :
   id_(ID++),
@@ -16,7 +17,7 @@ GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time
   randomGenerator_(minTime, maxTime)
 {
   std::random_device rd;
-  gen_ = {rd()};
+  gen_();
   if (maxTime_ < minTime) {
     throw std::invalid_argument("maxTime must be not less than minTime");
   }
@@ -32,7 +33,7 @@ std::shared_ptr<Order> GeneratorImpl::createNewOrder()
   }
 }
 
-unsigned long GeneratorImpl::getTimeToNextEvent() const
+Timer::time GeneratorImpl::getTimeToNextEvent() const
 {
   return timeOfNextOrder_ == 0 ? 0 : timeOfNextOrder_ - timer_->getCurrentTime();
 }

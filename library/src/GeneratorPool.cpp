@@ -51,3 +51,8 @@ std::vector<std::shared_ptr<Generator>> GeneratorPool::getGenerators() const
 {
   return generators_;
 }
+
+size_t GeneratorPool::getAmountOfGeneratedOrders() const
+{
+  return 10;//TODO: write it
+}

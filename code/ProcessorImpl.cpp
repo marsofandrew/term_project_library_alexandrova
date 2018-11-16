@@ -3,8 +3,9 @@
 //
 
 #include "ProcessorImpl.hpp"
+#include <random>
 
-ProcessorImpl::ProcessorImpl(unsigned double lambda) :
+ProcessorImpl::ProcessorImpl(double lambda) :
   id_(ID++),
   lambda_(lambda),
   amount_(0),
@@ -12,8 +13,8 @@ ProcessorImpl::ProcessorImpl(unsigned double lambda) :
   timer_(nullptr),
   randomGenerator_(lambda)
 {
-  std::random_device rd;
-  gen_ = {rd()};
+  std::random_device rd = {};
+  gen_(rd());
 }
 
 
@@ -34,8 +35,8 @@ bool ProcessorImpl::process(const std::shared_ptr<Order> &order)
   }
   order_ = order;
   Timer::time processTime = getProcessTime();
-  order_->setStartProcessTime(timer_->getCurrentTime());
-  order_->setProcessTime(processTime);
+  //order_->setStartProcessTime(timer_->getCurrentTime());
+  //order_->setProcessTime(processTime);
   timeOfEvent_ = timer_->getCurrentTime() + processTime;
   return true;
 }

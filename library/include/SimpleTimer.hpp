@@ -10,9 +10,8 @@
 class SimpleTimer : public Timer
 {
 public:
-  SimpleTimer() = default;
 
-  explicit SimpleTimer(Timer::time startTime);
+  explicit SimpleTimer(Timer::time startTime = 0);
 
   void add(Timer::time addTime) override;
 

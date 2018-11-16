@@ -6,6 +6,7 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_ORDERIMPL_HPP
 
 #include "interfaces/Generator.hpp"
+#include "interfaces/Processor.hpp"
 
 class Order
 {
@@ -28,6 +29,8 @@ public:
 
   void setProcessTime(Timer::time processTime);
 
+  void setProcessor(const std::shared_ptr<Processor> &processor);
+
 private:
   unsigned long id_;
   long customNumber_;
@@ -36,6 +39,7 @@ private:
   Timer::time generatedTime_;
   Timer::time startProcessTime_;
   Timer::time processTime_;
+  std::shared_ptr<Processor> processor_;
   static unsigned long ID;
 };
 

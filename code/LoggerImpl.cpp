@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-LoggerImpl::LoggerImpl(std::shared_ptr<std::basic_ostream> &stream) :
+LoggerImpl::LoggerImpl(std::basic_ostream *stream) :
   stream_(stream) {}
 
 void LoggerImpl::sendCratedOrder(const std::shared_ptr<Order> &order)
@@ -48,6 +48,20 @@ void LoggerImpl::sendGetOrderFromBuffer(const std::shared_ptr<Order> &order)
 {
   sendMessage(INFO, "Order: " + std::to_string(order->getId()) + " has taken from buffer");
 }
+
+void LoggerImpl::sendAddingOrderToBuffer(const std::shared_ptr<Order> &order)
+{
+  sendMessage(INFO, "Order: " + std::to_string(order->getId()) + "is adding to buffer");
+}
+
+void LoggerImpl::sendOrderToProcessor(const std::shared_ptr<Order> &order,
+                                      const std::shared_ptr<Processor> &processor)
+{
+  sendMessage(INFO, "Order: " + std::to_string(order->getId()) + "is set to processor: " +
+                    std::to_string(processor->getId()));
+}
+
+
 
 
 

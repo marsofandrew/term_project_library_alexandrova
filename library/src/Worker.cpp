@@ -18,6 +18,8 @@ Worker::Worker(const std::shared_ptr<GeneratorPool> &generatorsPool,
   logger_(logger)
 {
   logger_->setTimer(timer_);
+  generatorsPool_->setTimer(timer_);
+  processorsPool_->setTimer(timer_);
 }
 
 void Worker::run()
@@ -29,11 +31,12 @@ void Worker::run()
       std::shared_ptr<Order> orderGenerated = generatorsPool_->createNewOrder();
       logger_->sendCratedOrder(orderGenerated);
       auto order = buffer_->add(orderGenerated);
+      logger_->sendAddingOrderToBuffer(order);
       if (order != nullptr) {
         logger_->sendRefusedOrder(order);
       } else {
-		logger_->sendBufferedOrder(order);
-	  }
+        logger_->sendBufferedOrder(order);
+      }
     }
 
     if (processorsPool_->hasFinishedProcesses()) {
@@ -43,18 +46,23 @@ void Worker::run()
 
     if (processorsPool_->isFree() && !buffer_->isEmpty()) {
       std::shared_ptr<Order> order = buffer_->getElement();
-	  logger_->sendGetOrderFromBuffer(order);
+      auto processor = processorsPool_->getFreeProcessor();
+      order->setProcessor(processor);
+      logger_->sendGetOrderFromBuffer(order);
       buffer_->pop();
       processorsPool_->process(order);
+      order->setStartProcessTime(timer_->getCurrentTime());
+      order->setProcessTime(processor->getTimeToNextEvent());
+      logger_->sendOrderToProcessor(order, processor);
     }
   }
 }
 
 Timer::time Worker::getTimeToNextEvent()
 {
-  unsigned long time = generatorsPool_->getTimeToNextEvent();
+  Timer::time time = generatorsPool_->getTimeToNextEvent();
   if (!buffer_->isEmpty()) {
-    unsigned long time2 = processorsPool_->getTimeToNextEvent();
+    Timer::time time2 = processorsPool_->getTimeToNextEvent();
     return std::min(time, time2);
   }
   return time;

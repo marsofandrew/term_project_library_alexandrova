@@ -6,7 +6,7 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
 
 #include "TimeDependsObject.hpp"
-#include "../Order.hpp"
+class Order;
 
 class Processor : public TimeDependsObject
 {

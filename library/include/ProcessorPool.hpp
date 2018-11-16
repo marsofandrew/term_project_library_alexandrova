@@ -26,7 +26,7 @@ public:
 
   virtual unsigned long getId() const;
   
-  virtual std::shared_ptr<Processor> getFreeProcesor() const;
+  virtual std::shared_ptr<Processor> getFreeProcessor() const;
 
   virtual Timer::time getTimeToNextEvent() const;
 

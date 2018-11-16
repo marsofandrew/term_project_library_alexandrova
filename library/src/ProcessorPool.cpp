@@ -107,3 +107,28 @@ std::shared_ptr<Order> ProcessorPool::free()
   }
   return (*iter)->free();
 }
+
+std::shared_ptr<Processor> ProcessorPool::getFreeProcessor() const
+{
+
+  std::size_t index = currentIndex_;
+  if (index >= processors_.size()) {
+    index = 0;
+  }
+
+  if (processors_[index]->isFree()) {
+    return processors_[index];
+  }
+
+  for (std::size_t i = index + 1; i < processors_.size();) {
+    if (processors_[i]->isFree()) {
+      index = i;
+      return processors_[index];
+    }
+    ++i;
+    if (i >= processors_.size()) {
+      i = 0;
+    }
+  }
+  return nullptr;
+}
