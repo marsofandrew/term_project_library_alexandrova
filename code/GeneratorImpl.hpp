@@ -16,7 +16,9 @@ class GeneratorImpl : public Generator
 public:
   GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time maxTime);
 
-  std::shared_ptr<Order> createNewOrder() override;
+  void createNewOrder() override;
+
+  std::shared_ptr<Order> getOrder() override;
 
   Timer::time getTimeToNextEvent() const override;
 
@@ -37,7 +39,8 @@ private:
   unsigned long numberOfOrder_;
   std::mt19937 gen_;
   std::uniform_real_distribution<Timer::time> randomGenerator_;
-  
+  std::shared_ptr<Order> order_;
+
   Timer::time getTimeToNextOrder();
 };
 

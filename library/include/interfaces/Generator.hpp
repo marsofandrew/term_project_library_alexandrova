@@ -15,7 +15,9 @@ class Generator : public TimeDependsObject
 public:
   virtual ~Generator() = default;
 
-  virtual std::shared_ptr<Order> createNewOrder() = 0;
+  virtual void createNewOrder() = 0;
+
+  virtual std::shared_ptr<Order> getOrder() = 0;
 
   virtual unsigned long getId() const = 0;
 

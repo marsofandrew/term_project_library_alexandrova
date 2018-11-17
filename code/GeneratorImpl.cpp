@@ -14,7 +14,8 @@ GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time
   maxTime_(maxTime),
   amount_(0),
   numberOfOrder_(0),
-  randomGenerator_(minTime, maxTime)
+  randomGenerator_(minTime, maxTime),
+  order_(nullptr)
 {
   std::random_device rd;
   gen_();
@@ -23,14 +24,22 @@ GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time
   }
 }
 
-std::shared_ptr<Order> GeneratorImpl::createNewOrder()
+void GeneratorImpl::createNewOrder()
 {
   if (getTimeToNextEvent() <= 0) {
-	amount_++;
-    timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
-    return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
+    amount_++;
+    order_ = std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
                                    timer_->getCurrentTime());
+    timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
   }
+}
+
+std::shared_ptr<Order> GeneratorImpl::getOrder()
+{
+  if (getTimeToNextEvent()<=0){
+    return order_;
+  }
+  return nullptr;
 }
 
 Timer::time GeneratorImpl::getTimeToNextEvent() const
@@ -42,6 +51,7 @@ void GeneratorImpl::setTimer(const std::shared_ptr<Timer> &timer)
 {
   timer_ = timer;
 }
+
 std::size_t GeneratorImpl::getAmountOfGeneratedOrders() const
 {
   return amount_;
@@ -56,3 +66,4 @@ Timer::time GeneratorImpl::getTimeToNextOrder()
 {
   return randomGenerator_(gen_);
 }
+

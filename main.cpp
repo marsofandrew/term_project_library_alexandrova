@@ -53,6 +53,8 @@ int main()
   std::shared_ptr<ProcessorPool> processorPool = std::make_shared<ProcessorPool>(createProcessors({0.5, 1}));
   Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(5), std::make_shared<SimpleTimer>(),
                 condition, std::make_shared<LoggerImpl>(&std::cout));
+  worker.run();
+
   std::cout << "Hello, World!" << std::endl;
   return 0;
 }
