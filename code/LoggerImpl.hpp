@@ -11,7 +11,7 @@
 class LoggerImpl : public Logger
 {
 public:
-  explicit LoggerImpl(std::ostream *stream);
+  explicit LoggerImpl(std::basic_ostream<char> *stream);
 
   void sendCratedOrder(const std::shared_ptr<Order> &order) override;
 
@@ -34,7 +34,7 @@ public:
 
 private:
 
-  std::ostream* stream_;
+  std::basic_ostream<char> *stream_;
   std::shared_ptr<Timer> timer_;
 };
 

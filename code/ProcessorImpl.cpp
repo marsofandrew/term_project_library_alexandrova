@@ -5,6 +5,7 @@
 #include "ProcessorImpl.hpp"
 #include <random>
 
+
 ProcessorImpl::ProcessorImpl(double lambda) :
   id_(ID++),
   lambda_(lambda),
@@ -13,8 +14,9 @@ ProcessorImpl::ProcessorImpl(double lambda) :
   timer_(nullptr),
   randomGenerator_(lambda)
 {
-  std::random_device rd = {};
-  gen_(rd());
+  //std::random_device rd = {};
+  gen_ = std::mt19937(rand());
+
 }
 
 
@@ -67,5 +69,5 @@ std::size_t ProcessorImpl::getAmountOfProcessedOrders() const
 
 Timer::time ProcessorImpl::getProcessTime() const
 {
-  return randomGenerator_(gen_);
+  return 0;//randomGenerator_(gen_);
 }

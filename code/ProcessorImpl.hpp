@@ -38,7 +38,6 @@ private:
   std::exponential_distribution<Timer::time> randomGenerator_;
   std::mt19937 gen_;
 
-
   Timer::time getProcessTime() const;
 };
 

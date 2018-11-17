@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-LoggerImpl::LoggerImpl(std::basic_ostream *stream) :
+LoggerImpl::LoggerImpl(std::basic_ostream<char> *stream) :
   stream_(stream) {}
 
 void LoggerImpl::sendCratedOrder(const std::shared_ptr<Order> &order)

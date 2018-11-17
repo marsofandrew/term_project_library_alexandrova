@@ -1,5 +1,5 @@
 //
-// Created by marsofandrew on 05.11.18.
+// Craccessiblemarsofandrew on 05.11.18.
 //
 #include <algorithm>
 #include "../include/ProcessorPool.hpp"
@@ -46,9 +46,9 @@ bool ProcessorPool::process(const std::shared_ptr<Order> &order)
 
 Timer::time ProcessorPool::getTimeToNextEvent() const
 {
-  std::vector<unsigned long> times;
+  std::vector<Timer::time> times;
   std::transform(processors_.begin(), processors_.end(), std::back_inserter(times),
-                 [](const std::shared_ptr<Generator> &generator)
+                 [](const std::shared_ptr<Processor> &generator)
                  {
                    return generator->getTimeToNextEvent();
                  });
@@ -131,4 +131,9 @@ std::shared_ptr<Processor> ProcessorPool::getFreeProcessor() const
     }
   }
   return nullptr;
+}
+
+std::size_t ProcessorPool::getAmountOfProcessedOrders() const
+{
+  return 0;//TODO: FIX
 }
