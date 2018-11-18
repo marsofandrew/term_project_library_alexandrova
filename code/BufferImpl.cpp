@@ -2,7 +2,8 @@
 #include <memory>
 
 BufferImpl::BufferImpl(const std::size_t size) :
-  size_(size) {}
+  size_(size),
+  queue_() {}
 
 std::shared_ptr<Order> BufferImpl::add(const std::shared_ptr<Order> &order)
 {

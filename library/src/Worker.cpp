@@ -20,7 +20,11 @@ Worker::Worker(const std::shared_ptr<GeneratorPool> &generatorsPool,
   logger_->setTimer(timer_);
   generatorsPool_->setTimer(timer_);
   processorsPool_->setTimer(timer_);
-  generatorsPool_->createNewOrder();
+  auto generators = generatorsPool_->getGenerators();
+  std::for_each(generators.begin(), generators.end(), [](const std::shared_ptr<Generator> &generator)
+  {
+    generator->createNewOrder();
+  });
 }
 
 void Worker::run()
@@ -28,16 +32,16 @@ void Worker::run()
   while (condition_->shouldContinue(timer_, generatorsPool_, processorsPool_, buffer_)) {
     Timer::time time = getTimeToNextEvent();
     timer_->add(time);
-    if (generatorsPool_->getTimeToNextEvent() <= 0) {
+    if (Timer::equals(generatorsPool_->getTimeToNextEvent(), 0)) {
       std::shared_ptr<Order> orderGenerated = generatorsPool_->getOrder();
       generatorsPool_->createNewOrder();
       logger_->sendCratedOrder(orderGenerated);
+      logger_->sendAddingOrderToBuffer(orderGenerated);
       auto order = buffer_->add(orderGenerated);
-      logger_->sendAddingOrderToBuffer(order);
       if (order != nullptr) {
         logger_->sendRefusedOrder(order);
       } else {
-        logger_->sendBufferedOrder(order);
+        logger_->sendBufferedOrder(orderGenerated);
       }
     }
 

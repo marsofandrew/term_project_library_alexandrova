@@ -14,8 +14,8 @@ ProcessorImpl::ProcessorImpl(double lambda) :
   timer_(nullptr),
   randomGenerator_(lambda)
 {
-  //std::random_device rd = {};
-  gen_ = std::mt19937(rand());
+  std::random_device rd;
+  gen_ = std::mt19937(rd());
 
 }
 
@@ -37,8 +37,6 @@ bool ProcessorImpl::process(const std::shared_ptr<Order> &order)
   }
   order_ = order;
   Timer::time processTime = getProcessTime();
-  //order_->setStartProcessTime(timer_->getCurrentTime());
-  //order_->setProcessTime(processTime);
   timeOfEvent_ = timer_->getCurrentTime() + processTime;
   return true;
 }
@@ -59,7 +57,7 @@ bool ProcessorImpl::isFree()
 
 Timer::time ProcessorImpl::getTimeToNextEvent() const
 {
-  return timeOfEvent_ == 0 ? 0 : timeOfEvent_ - timer_->getCurrentTime();
+  return Timer::equals(timeOfEvent_, 0) ? 0 : timeOfEvent_ - timer_->getCurrentTime();
 }
 
 std::size_t ProcessorImpl::getAmountOfProcessedOrders() const
@@ -67,7 +65,7 @@ std::size_t ProcessorImpl::getAmountOfProcessedOrders() const
   return amount_;
 }
 
-Timer::time ProcessorImpl::getProcessTime() const
+Timer::time ProcessorImpl::getProcessTime()
 {
-  return 0;//randomGenerator_(gen_);
+  return randomGenerator_(gen_);
 }

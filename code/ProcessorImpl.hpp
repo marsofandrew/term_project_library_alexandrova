@@ -38,7 +38,7 @@ private:
   std::exponential_distribution<Timer::time> randomGenerator_;
   std::mt19937 gen_;
 
-  Timer::time getProcessTime() const;
+  Timer::time getProcessTime();
 };
 
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORIMPL_HPP

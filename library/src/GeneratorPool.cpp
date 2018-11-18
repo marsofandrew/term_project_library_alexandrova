@@ -15,7 +15,7 @@ unsigned long GeneratorPool::getId() const
 
 void GeneratorPool::setTimer(const std::shared_ptr<Timer> &timer)
 {
-  std::for_each(generators_.begin(), generators_.end(), [&](std::shared_ptr<Generator> &generator)
+  std::for_each(generators_.begin(), generators_.end(), [&](const std::shared_ptr<Generator> &generator)
   {
     generator->setTimer(timer);
   });
@@ -33,18 +33,17 @@ Timer::time GeneratorPool::getTimeToNextEvent() const
   return *minTime;
 }
 
-std::shared_ptr<Order> GeneratorPool::createNewOrder()
+void GeneratorPool::createNewOrder()
 {
-  if (getTimeToNextEvent() > 0) {
-    return nullptr;
+  if (!Timer::equals(getTimeToNextEvent(), 0)) {
+    return;
   }
 
   auto element = std::find_if(generators_.begin(), generators_.end(), [](const std::shared_ptr<Generator> &generator)
   {
-    return (generator->getTimeToNextEvent() <= 0);
+    return (Timer::equals(generator->getTimeToNextEvent(), 0));
   });
-
-  return (*element)->createNewOrder();
+  (*element)->createNewOrder();
 }
 
 std::vector<std::shared_ptr<Generator>> GeneratorPool::getGenerators() const
@@ -54,5 +53,26 @@ std::vector<std::shared_ptr<Generator>> GeneratorPool::getGenerators() const
 
 size_t GeneratorPool::getAmountOfGeneratedOrders() const
 {
-  return 10;//TODO: write it
+  std::vector<std::size_t> amounts;
+  std::transform(generators_.begin(), generators_.end(), std::back_inserter(amounts),
+                 [](const std::shared_ptr<Generator> &generator)
+                 {
+                   return generator->getAmountOfGeneratedOrders();
+                 });
+
+  return std::accumulate(amounts.begin(), amounts.end(), std::size_t(0));
+}
+
+std::shared_ptr<Order> GeneratorPool::getOrder()
+{
+  if (!Timer::equals(getTimeToNextEvent(), 0)) {
+    return nullptr;
+  }
+
+  auto element = std::find_if(generators_.begin(), generators_.end(), [](const std::shared_ptr<Generator> &generator)
+  {
+    return Timer::equals(generator->getTimeToNextEvent(), 0);
+  });
+
+  return (*element)->getOrder();
 }

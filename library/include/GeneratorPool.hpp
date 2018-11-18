@@ -16,7 +16,7 @@ public:
 
   virtual ~GeneratorPool() = default;
 
-  virtual std::shared_ptr<Order> createNewOrder();
+  virtual void createNewOrder();
 
   virtual unsigned long getId() const;
 
@@ -27,6 +27,8 @@ public:
   virtual std::vector<std::shared_ptr<Generator>> getGenerators() const;
 
   virtual std::size_t getAmountOfGeneratedOrders() const;
+
+  virtual std::shared_ptr<Order> getOrder();
 
 private:
   std::vector<std::shared_ptr<Generator>> generators_;

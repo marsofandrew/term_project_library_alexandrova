@@ -18,7 +18,7 @@ GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time
   order_(nullptr)
 {
   std::random_device rd;
-  gen_();
+  gen_ = std::mt19937(rd());
   if (maxTime_ < minTime) {
     throw std::invalid_argument("maxTime must be not less than minTime");
   }
@@ -26,25 +26,33 @@ GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time
 
 void GeneratorImpl::createNewOrder()
 {
-  if (getTimeToNextEvent() <= 0) {
+  if (timer_ == nullptr){
+    throw std::runtime_error("timer == nullptr");
+  }
+  if (Timer::equals(getTimeToNextEvent(), 0)) {
     amount_++;
     order_ = std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
-                                   timer_->getCurrentTime());
+                                     timer_->getCurrentTime());
     timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
   }
 }
 
 std::shared_ptr<Order> GeneratorImpl::getOrder()
 {
-  if (getTimeToNextEvent()<=0){
-    return order_;
+  if (Timer::equals(getTimeToNextEvent(), 0) ) {
+    auto tmp = order_;
+    order_ = nullptr;
+    return tmp;
   }
   return nullptr;
 }
 
 Timer::time GeneratorImpl::getTimeToNextEvent() const
 {
-  return timeOfNextOrder_ == 0 ? 0 : timeOfNextOrder_ - timer_->getCurrentTime();
+  if (timer_ == nullptr){
+    throw std::runtime_error("timer == nullptr");
+  }
+  return Timer::equals(timeOfNextOrder_, 0) ? 0 : timeOfNextOrder_ - timer_->getCurrentTime();
 }
 
 void GeneratorImpl::setTimer(const std::shared_ptr<Timer> &timer)

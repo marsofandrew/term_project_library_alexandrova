@@ -135,5 +135,12 @@ std::shared_ptr<Processor> ProcessorPool::getFreeProcessor() const
 
 std::size_t ProcessorPool::getAmountOfProcessedOrders() const
 {
-  return 0;//TODO: FIX
+  std::vector<std::size_t> amount;
+  std::transform(processors_.begin(), processors_.end(), std::back_inserter(amount),
+                 [](const std::shared_ptr<Processor> &processor)
+                 {
+                   return processor->getAmountOfProcessedOrders();
+                 });
+
+  return std::accumulate(amount.begin(), amount.end(), std::size_t(0));
 }
