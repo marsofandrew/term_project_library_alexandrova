@@ -11,6 +11,7 @@
 
 class Condition : public WorkCondition
 {
+public:
   explicit Condition(std::size_t amount, std::shared_ptr<Logger> logger);
 
   bool shouldContinue(const std::shared_ptr<Timer> &timer,
