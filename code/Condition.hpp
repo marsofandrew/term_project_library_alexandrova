@@ -19,6 +19,11 @@ public:
                       const std::shared_ptr<ProcessorPool> &processorPool,
                       const std::shared_ptr<Buffer> &buffer) const override;
 
+  bool shouldGenerateNewOrders(const std::shared_ptr<Timer> &timer,
+                               const std::shared_ptr<GeneratorPool> &generatorPool,
+                               const std::shared_ptr<ProcessorPool> &processorPool,
+                               const std::shared_ptr<Buffer> &buffer) const override;
+
 private:
   std::size_t amount_;
   std::shared_ptr<Logger> logger_;

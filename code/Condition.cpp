@@ -14,3 +14,11 @@ bool Condition::shouldContinue(const std::shared_ptr<Timer> &timer, const std::s
                                      std::to_string(processorPool->getAmountOfProcessedOrders()));
   return generatorPool->getAmountOfGeneratedOrders() < amount_;
 }
+
+bool Condition::shouldGenerateNewOrders(const std::shared_ptr<Timer> &timer,
+                                        const std::shared_ptr<GeneratorPool> &generatorPool,
+                                        const std::shared_ptr<ProcessorPool> &processorPool,
+                                        const std::shared_ptr<Buffer> &buffer) const
+{
+  return true;
+}
