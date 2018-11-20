@@ -9,7 +9,6 @@
 #include "code/LoggerImpl.hpp"
 #include "code/Condition.hpp"
 
-
 std::vector<std::shared_ptr<Generator>>
 createGenerators(const std::vector<int> &priorities, Timer::time minTime, Timer::time maxTime)
 {
