@@ -1,5 +1,6 @@
 #include <algorithm>
-#include "../include/SimpleGeneratorPool.hpp"
+#include <numeric>
+#include "../include/GeneratorPool.hpp"
 
 SimpleGeneratorPool::SimpleGeneratorPool(const std::vector<std::shared_ptr<Generator>> &generators) :
   generators_(generators),
