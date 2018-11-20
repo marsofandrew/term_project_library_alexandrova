@@ -28,7 +28,7 @@ bool ProcessorPool::process(const std::shared_ptr<Order> &order)
     return processors_[currentIndex_++]->process(order);
   }
 
-  for (std::size_t i = currentIndex_ + 1; i < processors_.size();) {
+  for (std::size_t i = currentIndex_; i < processors_.size();) {
     if (processors_[i]->isFree()) {
       currentIndex_ = i;
       return processors_[currentIndex_++]->process(order);
@@ -130,7 +130,7 @@ std::shared_ptr<Processor> ProcessorPool::getFreeProcessor() const
     return processors_[index];
   }
 
-  for (std::size_t i = index + 1; i < processors_.size();) {
+  for (std::size_t i = index; i < processors_.size();) {
     if (processors_[i]->isFree()) {
       index = i;
       return processors_[index];
