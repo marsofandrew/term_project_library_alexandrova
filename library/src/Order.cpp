@@ -40,8 +40,6 @@ void Order::setStartProcessTime(Timer::time startProcessTime)
   startProcessTime_ = startProcessTime;
 }
 
-unsigned long Order::ID = 0;
-
 void Order::setProcessor(const std::shared_ptr<Processor> &processor)
 {
   processor_ = processor;
