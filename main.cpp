@@ -7,26 +7,7 @@
 #include "code/BufferImpl.hpp"
 #include "library/include/SimpleTimer.hpp"
 #include "code/LoggerImpl.hpp"
-
-class Condition : public WorkCondition
-{
-public:
-  explicit Condition(std::size_t amount, std::shared_ptr<Logger> logger) : amount_(amount), logger_(logger) {};
-
-  bool shouldContinue(const std::shared_ptr<Timer> &timer,
-                      const std::shared_ptr<GeneratorPool> &generatorPool,
-                      const std::shared_ptr<ProcessorPool> &processorPool,
-                      const std::shared_ptr<Buffer> &buffer) const override
-  {
-    logger_->sendMessage(Logger::INFO, "processed orders: " +
-                                       std::to_string(processorPool->getAmountOfProcessedOrders()));
-    return processorPool->getAmountOfProcessedOrders() < amount_;
-  }
-
-private:
-  std::size_t amount_;
-  std::shared_ptr<Logger> logger_;
-};
+#include "code/Condition.hpp"
 
 std::vector<std::shared_ptr<Generator>>
 createGenerators(const std::vector<int> &priorities, Timer::time minTime, Timer::time maxTime)
@@ -55,7 +36,7 @@ int main()
   std::shared_ptr<GeneratorPool> generatorPool = std::make_shared<GeneratorPool>(createGenerators({1, 2, 3, 4}, 1, 3));
 
   std::shared_ptr<ProcessorPool> processorPool = std::make_shared<ProcessorPool>(createProcessors({0.5, 0.1}));
-  Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(3), std::make_shared<SimpleTimer>(),
+  Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(1), std::make_shared<SimpleTimer>(),
                 condition, logger);
   worker.run();
 
