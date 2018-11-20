@@ -1,7 +1,3 @@
-//
-// Created by marsofandrew on 14.11.18.
-//
-
 #include "LoggerImpl.hpp"
 #include <iostream>
 #include <string>

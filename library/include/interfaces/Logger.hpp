@@ -1,7 +1,3 @@
-//
-// Created by marsofandrew on 05.11.18.
-//
-
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_LOGGER_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_LOGGER_HPP
 

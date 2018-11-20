@@ -1,6 +1,3 @@
-//
-// Created by marsofandrew on 28.10.18.
-//
 #include "../include/Order.hpp"
 
 Order::Order(long customNumber, int priority,

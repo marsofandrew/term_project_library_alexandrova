@@ -1,8 +1,6 @@
-//
-// Craccessiblemarsofandrew on 05.11.18.
-//
-#include <algorithm>
 #include "../include/ProcessorPool.hpp"
+#include <algorithm>
+#include <numeric>
 
 ProcessorPool::ProcessorPool(const std::vector<std::shared_ptr<Processor>> &processors) :
   id_(ID++),
