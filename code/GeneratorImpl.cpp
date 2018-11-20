@@ -22,30 +22,27 @@ GeneratorImpl::GeneratorImpl(int orderPriority, Timer::time minTime, Timer::time
 
 void GeneratorImpl::createNewOrder()
 {
-  if (timer_ == nullptr){
+  if (timer_ == nullptr) {
     throw std::runtime_error("timer == nullptr");
   }
   if (Timer::equals(getTimeToNextEvent(), 0)) {
-    order_ = std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
-                                     timer_->getCurrentTime());
     timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
   }
 }
 
 std::shared_ptr<Order> GeneratorImpl::getOrder()
 {
-  if (Timer::equals(getTimeToNextEvent(), 0) ) {
+  if (Timer::equals(getTimeToNextEvent(), 0)) {
     amount_++;
-    auto tmp = order_;
-    order_ = nullptr;
-    return tmp;
+    return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
+                                   timer_->getCurrentTime());;
   }
   return nullptr;
 }
 
 Timer::time GeneratorImpl::getTimeToNextEvent() const
 {
-  if (timer_ == nullptr){
+  if (timer_ == nullptr) {
     throw std::runtime_error("timer == nullptr");
   }
   return Timer::equals(timeOfNextOrder_, 0) ? 0 : timeOfNextOrder_ - timer_->getCurrentTime();
