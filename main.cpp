@@ -41,6 +41,6 @@ int main()
                 condition, logger);
   worker.run();
 
-  std::cout << "Finish\n";
+  logger->sendMessage(Logger::INFO, "Finish");
   return 0;
 }

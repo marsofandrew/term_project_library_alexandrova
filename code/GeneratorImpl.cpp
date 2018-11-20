@@ -30,7 +30,6 @@ void GeneratorImpl::createNewOrder()
     throw std::runtime_error("timer == nullptr");
   }
   if (Timer::equals(getTimeToNextEvent(), 0)) {
-    amount_++;
     order_ = std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
                                      timer_->getCurrentTime());
     timeOfNextOrder_ = timer_->getCurrentTime() + getTimeToNextOrder();
@@ -40,6 +39,7 @@ void GeneratorImpl::createNewOrder()
 std::shared_ptr<Order> GeneratorImpl::getOrder()
 {
   if (Timer::equals(getTimeToNextEvent(), 0) ) {
+    amount_++;
     auto tmp = order_;
     order_ = nullptr;
     return tmp;
