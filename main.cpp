@@ -10,6 +10,7 @@
 #include "library/include/Condition.hpp"
 
 std::vector<std::shared_ptr<Generator>>
+//minTime and maxTime are alpha and beta for normally distributed value
 createGenerators(const std::vector<int> &priorities, Timer::time minTime, Timer::time maxTime)
 {
   std::vector<std::shared_ptr<Generator>> vector;
@@ -31,7 +32,7 @@ std::vector<std::shared_ptr<Processor>> createProcessors(const std::vector<doubl
 int main()
 {
   std::shared_ptr<Logger> logger = std::make_shared<LoggerImpl>(&std::cout);
-  std::shared_ptr<WorkCondition> condition = std::make_shared<Condition>(1000, logger);
+  std::shared_ptr<WorkCondition> condition = std::make_shared<Condition>(25, logger);
 
   std::shared_ptr<GeneratorPool> generatorPool = std::make_shared<GeneratorPool>(createGenerators({1, 2, 3, 4}, 1, 3));
 

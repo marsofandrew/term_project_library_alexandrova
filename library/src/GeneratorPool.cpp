@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <numeric>
 #include "../include/GeneratorPool.hpp"
 
 GeneratorPool::GeneratorPool(const std::vector<std::shared_ptr<Generator>> &generators) :
