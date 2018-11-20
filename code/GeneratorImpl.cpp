@@ -35,7 +35,7 @@ std::shared_ptr<Order> GeneratorImpl::getOrder()
   if (Timer::equals(getTimeToNextEvent(), 0)) {
     amount_++;
     return std::make_shared<Order>(numberOfOrder_++, orderPriority_, std::make_shared<GeneratorImpl>(*this),
-                                   timer_->getCurrentTime());;
+                                   timer_->getCurrentTime());
   }
   return nullptr;
 }

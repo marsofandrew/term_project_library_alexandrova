@@ -21,7 +21,6 @@ public:
  private:
    std::list<std::shared_ptr<Order>> queue_;
    std::size_t size_;
-   std::list<std::shared_ptr<Order>> refused_;
 
   std::shared_ptr<Order> addWhenBufferFull(const std::shared_ptr<Order> &order);
 };

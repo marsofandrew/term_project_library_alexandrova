@@ -32,7 +32,8 @@ void Worker::run()
   while (condition_->shouldContinue(timer_, generatorsPool_, processorsPool_, buffer_)) {
     Timer::time time = getTimeToNextEvent();
     timer_->add(time);
-    if (Timer::equals(generatorsPool_->getTimeToNextEvent(), 0) && condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
+    if (Timer::equals(generatorsPool_->getTimeToNextEvent(), 0) &&
+        condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
       std::shared_ptr<Order> orderGenerated = generatorsPool_->getOrder();
       generatorsPool_->createNewOrder();
       logger_->sendCratedOrder(orderGenerated);
@@ -67,12 +68,17 @@ void Worker::run()
 Timer::time Worker::getTimeToNextEvent()
 {
   std::vector<Timer::time> times;
+
   if (condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
     times.emplace_back(generatorsPool_->getTimeToNextEvent());
   }
-  if (!buffer_->isEmpty() || processorsPool_->isProcess() ||
-      !condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
+
+  if (!buffer_->isEmpty() || !condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
+    times.emplace_back(processorsPool_->getTimeToNextEvent());
+  }
+
+  if(buffer_->isEmpty() && processorsPool_->isProcess()){
     times.emplace_back(processorsPool_->getTimeToFinishProcess());
   }
-  return *std::min(times.begin(), times.end());
+  return *std::min_element(times.begin(), times.end());
 }

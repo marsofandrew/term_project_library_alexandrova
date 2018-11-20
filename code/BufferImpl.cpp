@@ -44,12 +44,10 @@ std::shared_ptr<Order> BufferImpl::addWhenBufferFull(const std::shared_ptr<Order
   }
   if (lessPriority < currentPriority) {
     std::shared_ptr<Order> lessPriorityOrder = *lessPriorityElement;
-    refused_.push_back(lessPriorityOrder);
     queue_.remove(*lessPriorityElement);
     queue_.push_back(order);
     return lessPriorityOrder;
   }
 
-  refused_.push_back(order);
   return order;
 }
