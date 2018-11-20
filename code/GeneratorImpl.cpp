@@ -1,7 +1,3 @@
-//
-// Created by marsofandrew on 28.10.18.
-//
-
 #include "GeneratorImpl.hpp"
 #include "../library/include/Order.hpp"
 #include <stdexcept>

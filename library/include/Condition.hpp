@@ -1,13 +1,9 @@
-//
-// Created by marsofandrew on 20.11.18.
-//
-
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_CONDITION_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_CONDITION_HPP
 
 #include <memory>
-#include "../library/include/interfaces/WorkCondition.hpp"
-#include "../library/include/interfaces/Logger.hpp"
+#include "interfaces/WorkCondition.hpp"
+#include "interfaces/Logger.hpp"
 
 class Condition : public WorkCondition
 {

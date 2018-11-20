@@ -1,6 +1,3 @@
-//
-// Created by marsofandrew on 28.10.18.
-//
 #include "../include/interfaces/Generator.hpp"
 #include "../include/interfaces/Processor.hpp"
 
