@@ -1,8 +1,4 @@
-//
-// Created by marsofandrew on 20.11.18.
-//
-
-#include "Condition.hpp"
+#include "../include/Condition.hpp"
 
 Condition::Condition(std::size_t amount, std::shared_ptr<Logger> logger) : amount_(amount), logger_(logger) {}
 

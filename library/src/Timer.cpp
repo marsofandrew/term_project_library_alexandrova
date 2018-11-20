@@ -1,7 +1,3 @@
-//
-// Created by marsofandrew on 18.11.18.
-//
-
 #include <cmath>
 #include "../include/interfaces/Timer.hpp"
 

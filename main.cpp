@@ -7,7 +7,7 @@
 #include "code/BufferImpl.hpp"
 #include "library/include/SimpleTimer.hpp"
 #include "code/LoggerImpl.hpp"
-#include "code/Condition.hpp"
+#include "library/include/Condition.hpp"
 
 std::vector<std::shared_ptr<Generator>>
 createGenerators(const std::vector<int> &priorities, Timer::time minTime, Timer::time maxTime)

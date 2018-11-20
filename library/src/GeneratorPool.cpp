@@ -1,6 +1,3 @@
-//
-// Created by marsofandrew on 31.10.18.
-//
 #include <algorithm>
 #include "../include/GeneratorPool.hpp"
 
