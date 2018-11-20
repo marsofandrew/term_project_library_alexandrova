@@ -67,8 +67,8 @@ void Worker::run()
 Timer::time Worker::getTimeToNextEvent()
 {
   Timer::time time = generatorsPool_->getTimeToNextEvent();
-  if (!buffer_->isEmpty()) {
-    Timer::time time2 = processorsPool_->getTimeToNextEvent();
+  if (!buffer_->isEmpty() || processorsPool_->isProcess()) {
+    Timer::time time2 = processorsPool_->getTimeToFinishProcess();
     return std::min(time, time2);
   }
   return time;

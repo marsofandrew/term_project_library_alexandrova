@@ -56,10 +56,20 @@ Timer::time ProcessorPool::getTimeToNextEvent() const
   return *minTime;
 }
 
-bool ProcessorPool::isFree()
+bool ProcessorPool::isFree() const
 {
   for (const std::shared_ptr<Processor> &processor: processors_) {
     if (processor->isFree()) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool ProcessorPool::isProcess() const
+{
+  for (const std::shared_ptr<Processor> &processor: processors_) {
+    if (!processor->isFree()) {
       return true;
     }
   }
@@ -143,4 +153,23 @@ std::size_t ProcessorPool::getAmountOfProcessedOrders() const
                  });
 
   return std::accumulate(amount.begin(), amount.end(), std::size_t(0));
+}
+
+Timer::time ProcessorPool::getTimeToFinishProcess() const
+{
+
+  if (!isProcess()) { //TODO: FIX IT (maybe)
+    throw std::runtime_error("Pool haven't processors in state execute");
+  }
+
+  std::vector<Timer::time> times;
+  std::for_each(processors_.begin(), processors_.end(), [&](const std::shared_ptr<Processor> &processor)
+  {
+    if (!processor->isFree()) {
+      times.emplace_back(processor->getTimeToNextEvent());
+    }
+  });
+  auto min = std::min_element(times.begin(), times.end());
+
+  return *min;
 }

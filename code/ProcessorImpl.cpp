@@ -50,7 +50,7 @@ std::shared_ptr<Order> ProcessorImpl::free()
   return tmp;
 }
 
-bool ProcessorImpl::isFree()
+bool ProcessorImpl::isFree() const
 {
   return order_ == nullptr;
 }

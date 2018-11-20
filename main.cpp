@@ -19,7 +19,7 @@ public:
                       const std::shared_ptr<Buffer> &buffer) const override
   {
     logger_->sendMessage(Logger::INFO, "processed orders: " +
-      std::to_string(processorPool->getAmountOfProcessedOrders()));
+                                       std::to_string(processorPool->getAmountOfProcessedOrders()));
     return processorPool->getAmountOfProcessedOrders() < amount_;
   }
 
@@ -54,11 +54,11 @@ int main()
 
   std::shared_ptr<GeneratorPool> generatorPool = std::make_shared<GeneratorPool>(createGenerators({1, 2, 3, 4}, 1, 3));
 
-  std::shared_ptr<ProcessorPool> processorPool = std::make_shared<ProcessorPool>(createProcessors({0.5,0.1}));
-  Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(1), std::make_shared<SimpleTimer>(),
+  std::shared_ptr<ProcessorPool> processorPool = std::make_shared<ProcessorPool>(createProcessors({0.5, 0.1}));
+  Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(3), std::make_shared<SimpleTimer>(),
                 condition, logger);
   worker.run();
 
-  std::cout << "Hello, World!" << std::endl;
+  std::cout << "Finish\n";
   return 0;
 }

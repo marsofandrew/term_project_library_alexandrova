@@ -16,7 +16,7 @@ public:
 
   bool process(const std::shared_ptr<Order> &order) override;
 
-  bool isFree() override;
+  bool isFree() const override;
 
   std::shared_ptr<Order> free() override;
 

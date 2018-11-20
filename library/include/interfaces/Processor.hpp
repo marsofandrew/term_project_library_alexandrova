@@ -15,7 +15,7 @@ public:
 
   virtual bool process(const std::shared_ptr<Order> &order) = 0;
 
-  virtual bool isFree() = 0;
+  virtual bool isFree() const = 0;
 
   virtual std::shared_ptr<Order> free() = 0;
 

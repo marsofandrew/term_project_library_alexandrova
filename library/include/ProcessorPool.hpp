@@ -12,13 +12,15 @@
 class ProcessorPool : public Processor
 {
 public:
-  ProcessorPool(const std::vector<std::shared_ptr<Processor>> &processors);
+  explicit ProcessorPool(const std::vector<std::shared_ptr<Processor>> &processors);
 
   virtual ~ProcessorPool() = default;
 
   virtual bool process(const std::shared_ptr<Order> &order);
 
-  virtual bool isFree();
+  virtual bool isFree() const;
+
+  virtual bool isProcess() const;
 
   virtual std::shared_ptr<Order> free();
 
@@ -29,6 +31,8 @@ public:
   virtual std::shared_ptr<Processor> getFreeProcessor() const;
 
   virtual Timer::time getTimeToNextEvent() const;
+
+  virtual Timer::time getTimeToFinishProcess() const;
 
   virtual bool hasFinishedProcesses() const;
 
