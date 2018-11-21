@@ -3,6 +3,8 @@
 #include "../include/Worker.hpp"
 #include "../include/interfaces/Buffer.hpp"
 #include "../include/Order.hpp"
+#include "../include/interfaces/GeneratorPool.hpp"
+#include "../include/interfaces/ProcessorPool.hpp"
 
 Worker::Worker(const std::shared_ptr<GeneratorPool> &generatorsPool,
                const std::shared_ptr<ProcessorPool> &processorsPool,

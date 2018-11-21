@@ -33,9 +33,9 @@ int main()
   std::shared_ptr<Logger> logger = std::make_shared<LoggerImpl>(&std::cout);
   std::shared_ptr<WorkCondition> condition = std::make_shared<Condition>(1000, logger);
 
-  std::shared_ptr<GeneratorPool> generatorPool = std::make_shared<GeneratorPool>(createGenerators({1, 2, 3, 4}, 1, 3));
+  std::shared_ptr<SimpleGeneratorPool> generatorPool = std::make_shared<SimpleGeneratorPool>(createGenerators({1, 2, 3, 4}, 1, 3));
 
-  std::shared_ptr<ProcessorPool> processorPool = std::make_shared<ProcessorPool>(createProcessors({10, 5}));
+  std::shared_ptr<ProcessorPoolImpl> processorPool = std::make_shared<ProcessorPoolImpl>(createProcessors({10, 5}));
   Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(2), std::make_shared<SimpleTimer>(),
                 condition, logger);
   worker.run();

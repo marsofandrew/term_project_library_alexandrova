@@ -1,18 +1,18 @@
-#include "../include/ProcessorPool.hpp"
+#include "ProcessorPoolImpl.hpp"
 #include <algorithm>
 #include <numeric>
 
-ProcessorPool::ProcessorPool(const std::vector<std::shared_ptr<Processor>> &processors) :
+ProcessorPoolImpl::ProcessorPoolImpl(const std::vector<std::shared_ptr<Processor>> &processors) :
   id_(ID++),
   processors_(processors),
   currentIndex_(0) {}
 
-unsigned long ProcessorPool::getId() const
+unsigned long ProcessorPoolImpl::getId() const
 {
   return id_;
 }
 
-bool ProcessorPool::process(const std::shared_ptr<Order> &order)
+bool ProcessorPoolImpl::process(const std::shared_ptr<Order> &order)
 {
   if (processors_.empty() || !isFree()) {
     return false;
@@ -42,7 +42,7 @@ bool ProcessorPool::process(const std::shared_ptr<Order> &order)
   return false;
 }
 
-Timer::time ProcessorPool::getTimeToNextEvent() const
+Timer::time ProcessorPoolImpl::getTimeToNextEvent() const
 {
   std::vector<Timer::time> times;
   std::transform(processors_.begin(), processors_.end(), std::back_inserter(times),
@@ -54,7 +54,7 @@ Timer::time ProcessorPool::getTimeToNextEvent() const
   return *minTime;
 }
 
-bool ProcessorPool::isFree() const
+bool ProcessorPoolImpl::isFree() const
 {
   for (const std::shared_ptr<Processor> &processor: processors_) {
     if (processor->isFree()) {
@@ -64,7 +64,7 @@ bool ProcessorPool::isFree() const
   return false;
 }
 
-bool ProcessorPool::isProcess() const
+bool ProcessorPoolImpl::isProcess() const
 {
   for (const std::shared_ptr<Processor> &processor: processors_) {
     if (!processor->isFree()) {
@@ -74,7 +74,7 @@ bool ProcessorPool::isProcess() const
   return false;
 }
 
-void ProcessorPool::setTimer(const std::shared_ptr<Timer> &timer)
+void ProcessorPoolImpl::setTimer(const std::shared_ptr<Timer> &timer)
 {
   std::for_each(processors_.begin(), processors_.end(), [&](std::shared_ptr<Processor> &processor)
   {
@@ -82,7 +82,7 @@ void ProcessorPool::setTimer(const std::shared_ptr<Timer> &timer)
   });
 }
 
-std::vector<std::shared_ptr<Order>> ProcessorPool::freeAll()
+std::vector<std::shared_ptr<Order>> ProcessorPoolImpl::freeAll()
 {
   std::vector<std::shared_ptr<Order>> orders;
   std::transform(processors_.begin(), processors_.end(), std::back_inserter(orders),
@@ -93,7 +93,7 @@ std::vector<std::shared_ptr<Order>> ProcessorPool::freeAll()
   return orders;
 }
 
-bool ProcessorPool::hasFinishedProcesses() const
+bool ProcessorPoolImpl::hasFinishedProcesses() const
 {
   for (const std::shared_ptr<Processor> &processor: processors_) {
     if (!(processor->isFree()) && processor->getTimeToNextEvent() <= 0) {
@@ -103,7 +103,7 @@ bool ProcessorPool::hasFinishedProcesses() const
   return false;
 }
 
-std::shared_ptr<Order> ProcessorPool::free()
+std::shared_ptr<Order> ProcessorPoolImpl::free()
 {
   auto iter = std::find_if(processors_.begin(), processors_.end(), [](std::shared_ptr<Processor> &processor)
   {
@@ -116,7 +116,7 @@ std::shared_ptr<Order> ProcessorPool::free()
   return (*iter)->free();
 }
 
-std::shared_ptr<Processor> ProcessorPool::getFreeProcessor() const
+std::shared_ptr<Processor> ProcessorPoolImpl::getFreeProcessor() const
 {
 
   std::size_t index = currentIndex_;
@@ -141,7 +141,7 @@ std::shared_ptr<Processor> ProcessorPool::getFreeProcessor() const
   return nullptr;
 }
 
-std::size_t ProcessorPool::getAmountOfProcessedOrders() const
+std::size_t ProcessorPoolImpl::getAmountOfProcessedOrders() const
 {
   std::vector<std::size_t> amount;
   std::transform(processors_.begin(), processors_.end(), std::back_inserter(amount),
@@ -153,7 +153,7 @@ std::size_t ProcessorPool::getAmountOfProcessedOrders() const
   return std::accumulate(amount.begin(), amount.end(), std::size_t(0));
 }
 
-Timer::time ProcessorPool::getTimeToFinishProcess() const
+Timer::time ProcessorPoolImpl::getTimeToFinishProcess() const
 {
 
   if (!isProcess()) { //TODO: FIX IT (maybe)

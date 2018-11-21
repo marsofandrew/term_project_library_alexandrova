@@ -2,11 +2,11 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKER_HPP
 
 #include "interfaces/Timer.hpp"
-#include "interfaces/Generator.hpp"
-#include "ProcessorPool.hpp"
 #include "interfaces/Buffer.hpp"
 #include "interfaces/WorkCondition.hpp"
 #include "interfaces/Logger.hpp"
+#include "interfaces/GeneratorPool.hpp"
+#include "interfaces/ProcessorPool.hpp"
 
 class Worker
 {

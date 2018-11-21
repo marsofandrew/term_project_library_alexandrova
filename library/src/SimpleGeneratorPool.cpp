@@ -1,16 +1,16 @@
 #include <algorithm>
-#include "../include/GeneratorPool.hpp"
+#include "../include/SimpleGeneratorPool.hpp"
 
-GeneratorPool::GeneratorPool(const std::vector<std::shared_ptr<Generator>> &generators) :
+SimpleGeneratorPool::SimpleGeneratorPool(const std::vector<std::shared_ptr<Generator>> &generators) :
   generators_(generators),
   id_(ID++) {}
 
-unsigned long GeneratorPool::getId() const
+unsigned long SimpleGeneratorPool::getId() const
 {
   return id_;
 }
 
-void GeneratorPool::setTimer(const std::shared_ptr<Timer> &timer)
+void SimpleGeneratorPool::setTimer(const std::shared_ptr<Timer> &timer)
 {
   std::for_each(generators_.begin(), generators_.end(), [&](const std::shared_ptr<Generator> &generator)
   {
@@ -18,7 +18,7 @@ void GeneratorPool::setTimer(const std::shared_ptr<Timer> &timer)
   });
 }
 
-Timer::time GeneratorPool::getTimeToNextEvent() const
+Timer::time SimpleGeneratorPool::getTimeToNextEvent() const
 {
   std::vector<Timer::time> times;
   std::transform(generators_.begin(), generators_.end(), std::back_inserter(times),
@@ -30,7 +30,7 @@ Timer::time GeneratorPool::getTimeToNextEvent() const
   return *minTime;
 }
 
-void GeneratorPool::createNewOrder()
+void SimpleGeneratorPool::createNewOrder()
 {
   if (!Timer::equals(getTimeToNextEvent(), 0)) {
     return;
@@ -43,12 +43,12 @@ void GeneratorPool::createNewOrder()
   (*element)->createNewOrder();
 }
 
-std::vector<std::shared_ptr<Generator>> GeneratorPool::getGenerators() const
+std::vector<std::shared_ptr<Generator>> SimpleGeneratorPool::getGenerators() const
 {
   return generators_;
 }
 
-size_t GeneratorPool::getAmountOfGeneratedOrders() const
+size_t SimpleGeneratorPool::getAmountOfGeneratedOrders() const
 {
   std::vector<std::size_t> amounts;
   std::transform(generators_.begin(), generators_.end(), std::back_inserter(amounts),
@@ -60,7 +60,7 @@ size_t GeneratorPool::getAmountOfGeneratedOrders() const
   return std::accumulate(amounts.begin(), amounts.end(), std::size_t(0));
 }
 
-std::shared_ptr<Order> GeneratorPool::getOrder()
+std::shared_ptr<Order> SimpleGeneratorPool::getOrder()
 {
   if (!Timer::equals(getTimeToNextEvent(), 0)) {
     return nullptr;
