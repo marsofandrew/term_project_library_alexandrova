@@ -22,7 +22,7 @@ public:
 
   unsigned long getId() const override;
 
-  std::size_t getAmountOfGeneratedOrders() const override ;
+  std::size_t getAmountOfGeneratedOrders() const override;
 
 private:
   unsigned long id_;

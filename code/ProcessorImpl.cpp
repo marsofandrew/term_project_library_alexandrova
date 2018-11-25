@@ -14,7 +14,6 @@ ProcessorImpl::ProcessorImpl(double lambda) :
 
 }
 
-
 void ProcessorImpl::setTimer(const std::shared_ptr<Timer> &timer)
 {
   timer_ = timer;

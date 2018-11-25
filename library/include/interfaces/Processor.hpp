@@ -2,6 +2,7 @@
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
 
 #include "TimeDependsObject.hpp"
+
 class Order;
 
 class Processor : public TimeDependsObject
@@ -17,7 +18,7 @@ public:
 
   virtual unsigned long getId() const = 0;
 
-  virtual std::size_t getAmountOfProcessedOrders()const = 0;
+  virtual std::size_t getAmountOfProcessedOrders() const = 0;
 
 protected:
   static unsigned long ID;
