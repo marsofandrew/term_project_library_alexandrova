@@ -34,19 +34,6 @@ void Worker::run()
   while (condition_->shouldContinue(timer_, generatorsPool_, processorsPool_, buffer_)) {
     Timer::time time = getTimeToNextEvent();
     timer_->add(time);
-    if (Timer::equals(generatorsPool_->getTimeToNextEvent(), 0) &&
-        condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
-      std::shared_ptr<Order> orderGenerated = generatorsPool_->getOrder();
-      generatorsPool_->createNewOrder();
-      logger_->sendCratedOrder(orderGenerated);
-      logger_->sendAddingOrderToBuffer(orderGenerated);
-      auto order = buffer_->add(orderGenerated);
-      if (order != nullptr) {
-        logger_->sendRefusedOrder(order);
-      } else {
-        logger_->sendBufferedOrder(orderGenerated);
-      }
-    }
 
     if (processorsPool_->hasFinishedProcesses()) {
       std::shared_ptr<Order> order = processorsPool_->free();
@@ -64,6 +51,20 @@ void Worker::run()
       order->setProcessTime(processor->getTimeToNextEvent());
       logger_->sendOrderToProcessor(order, processor);
     }
+
+    if (Timer::equals(generatorsPool_->getTimeToNextEvent(), 0) &&
+        condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
+      std::shared_ptr<Order> orderGenerated = generatorsPool_->getOrder();
+      generatorsPool_->createNewOrder();
+      logger_->sendCratedOrder(orderGenerated);
+      logger_->sendAddingOrderToBuffer(orderGenerated);
+      auto order = buffer_->add(orderGenerated);
+      if (order != nullptr) {
+        logger_->sendRefusedOrder(order);
+      } else {
+        logger_->sendBufferedOrder(orderGenerated);
+      }
+    }
   }
 }
 
@@ -79,7 +80,7 @@ Timer::time Worker::getTimeToNextEvent()
     times.emplace_back(processorsPool_->getTimeToNextEvent());
   }
 
-  if(buffer_->isEmpty() && processorsPool_->isProcess()){
+  if (buffer_->isEmpty() && processorsPool_->isProcess()) {
     times.emplace_back(processorsPool_->getTimeToFinishProcess());
   }
   return *std::min_element(times.begin(), times.end());
