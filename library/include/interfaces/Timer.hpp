@@ -15,6 +15,4 @@ public:
   static bool equals(const Timer::time &left, const Timer::time &right);
 };
 
-
-
 #endif //TERM_PROJECT_LIBRARY_ALEXANDROVA_TIMER_HPP
