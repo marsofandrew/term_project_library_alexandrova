@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFERIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_BUFFERIMPL_HPP
 
+#include <memory>
 #include <list>
 #include "../library/include/Order.hpp"
 #include "../library/include/interfaces/Buffer.hpp"

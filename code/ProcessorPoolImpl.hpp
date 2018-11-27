@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORPOOLIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORPOOLIMPL_HPP
 
+#include <memory>
 #include <vector>
 #include "../library/include/interfaces/Processor.hpp"
 #include "../library/include/Order.hpp"

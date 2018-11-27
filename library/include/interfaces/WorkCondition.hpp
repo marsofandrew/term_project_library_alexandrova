@@ -1,10 +1,11 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKCONDITION_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKCONDITION_HPP
 
+#include <memory>
 #include "Timer.hpp"
-#include "../../../code/ProcessorPoolImpl.hpp"
-#include "../SimpleGeneratorPool.hpp"
 #include "Buffer.hpp"
+#include "ProcessorPool.hpp"
+#include "GeneratorPool.hpp"
 
 class WorkCondition
 {

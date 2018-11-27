@@ -42,10 +42,11 @@ void Worker::run()
 
     if (processorsPool_->isFree() && !buffer_->isEmpty()) {
       std::shared_ptr<Order> order = buffer_->getElement();
+      buffer_->pop();
+      order->setGettingTime(timer_->getCurrentTime());
       auto processor = processorsPool_->getFreeProcessor();
       order->setProcessor(processor);
       logger_->sendGetOrderFromBuffer(order);
-      buffer_->pop();
       processorsPool_->process(order);
       order->setStartProcessTime(timer_->getCurrentTime());
       order->setProcessTime(processor->getTimeToNextEvent());
@@ -54,14 +55,17 @@ void Worker::run()
 
     if (Timer::equals(generatorsPool_->getTimeToNextEvent(), 0) &&
         condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
+
       std::shared_ptr<Order> orderGenerated = generatorsPool_->getOrder();
       generatorsPool_->createNewOrder();
-      logger_->sendCratedOrder(orderGenerated);
+      logger_->sendCreatedOrder(orderGenerated);
       logger_->sendAddingOrderToBuffer(orderGenerated);
       auto order = buffer_->add(orderGenerated);
       if (order != nullptr) {
         logger_->sendRefusedOrder(order);
+        order->setRefusedTime(timer_->getCurrentTime());
       } else {
+        orderGenerated->setInsertTime(timer_->getCurrentTime());
         logger_->sendBufferedOrder(orderGenerated);
       }
     }

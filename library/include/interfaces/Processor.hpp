@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSOR_HPP
 
+#include <memory>
 #include "TimeDependsObject.hpp"
 
 class Order;

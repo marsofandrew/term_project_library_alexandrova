@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_LOGGER_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_LOGGER_HPP
 
+#include <memory>
 #include "../Order.hpp"
 
 class Logger
@@ -15,7 +16,7 @@ public:
 
   ~Logger() = default;
 
-  virtual void sendCratedOrder(const std::shared_ptr<Order> &order) = 0;
+  virtual void sendCreatedOrder(const std::shared_ptr<Order> &order) = 0;
 
   virtual void sendRefusedOrder(const std::shared_ptr<Order> &order) = 0;
 
