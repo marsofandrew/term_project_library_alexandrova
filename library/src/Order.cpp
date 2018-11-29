@@ -1,7 +1,7 @@
 #include "../include/Order.hpp"
 
 Order::Order(long customNumber, int priority,
-             const std::shared_ptr<Generator> &sourceGenerator, unsigned long generatedTime) :
+             const std::shared_ptr<Generator> &sourceGenerator, Timer::time generatedTime) :
   id_(ID++),
   customNumber_(customNumber),
   priority_(priority),

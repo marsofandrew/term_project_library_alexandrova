@@ -10,7 +10,7 @@ class Order
 public:
 
   Order(long customNumber, int priority,
-        const std::shared_ptr<Generator> &sourceGenerator, unsigned long generaedTime);
+        const std::shared_ptr<Generator> &sourceGenerator, Timer::time generatedTime);
 
   virtual ~Order() = default;
 
