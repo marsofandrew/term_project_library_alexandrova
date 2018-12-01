@@ -1,9 +1,11 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORPOOLIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORPOOLIMPL_HPP
 
+#include <vector>
+#include <memory>
 #include "interfaces/Generator.hpp"
 #include "interfaces/GeneratorPool.hpp"
-#include <vector>
+
 
 class SimpleGeneratorPool : public GeneratorPool
 {

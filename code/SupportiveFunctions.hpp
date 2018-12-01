@@ -5,6 +5,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_SUPPORTIVEFUNCTIONS_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_SUPPORTIVEFUNCTIONS_HPP
 
+#include <memory>
 #include <vector>
 #include "../library/include/interfaces/Generator.hpp"
 #include "GeneratorImpl.hpp"

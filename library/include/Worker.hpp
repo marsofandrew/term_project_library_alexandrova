@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKER_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_WORKER_HPP
 
+#include <memory>
 #include "interfaces/Timer.hpp"
 #include "interfaces/Buffer.hpp"
 #include "interfaces/WorkCondition.hpp"

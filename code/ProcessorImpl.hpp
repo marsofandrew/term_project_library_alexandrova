@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORIMPL_HPP
 
+#include <memory>
 #include <random>
 #include "../library/include/interfaces/Processor.hpp"
 #include "../library/include/interfaces/Timer.hpp"

@@ -5,6 +5,8 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORPOOL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_PROCESSORPOOL_HPP
 
+#include <memory>
+#include <vector>
 #include "Processor.hpp"
 
 class ProcessorPool : public Processor

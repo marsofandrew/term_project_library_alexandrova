@@ -9,6 +9,8 @@
 #include "code/LoggerImpl.hpp"
 #include "library/include/Condition.hpp"
 #include "code/SupportiveFunctions.hpp"
+#include "library/include/SimpleGeneratorPool.hpp"
+#include "code/ProcessorPoolImpl.hpp"
 
 int main()
 {
@@ -20,7 +22,7 @@ int main()
 
   std::shared_ptr<ProcessorPoolImpl> processorPool = std::make_shared<ProcessorPoolImpl>(
     SupportiveFunctions::createProcessors({0.1, 0.5}));
-  Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(2), std::make_shared<SimpleTimer>(),
+  Worker worker(generatorPool, processorPool, std::make_shared<BufferImpl>(1), std::make_shared<SimpleTimer>(),
                 condition, logger);
   worker.run();
 

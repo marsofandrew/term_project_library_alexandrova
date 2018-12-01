@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_LOGGERIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_LOGGERIMPL_HPP
 
+#include <memory>
 #include "../library/include/interfaces/Logger.hpp"
 #include "../library/include/Order.hpp"
 
@@ -9,7 +10,7 @@ class LoggerImpl : public Logger
 public:
   explicit LoggerImpl(std::basic_ostream<char> *stream);
 
-  void sendCratedOrder(const std::shared_ptr<Order> &order) override;
+  void sendCreatedOrder(const std::shared_ptr<Order> &order) override;
 
   void sendRefusedOrder(const std::shared_ptr<Order> &order) override;
 

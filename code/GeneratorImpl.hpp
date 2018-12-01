@@ -1,6 +1,7 @@
 #ifndef TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORIMPL_HPP
 #define TERM_PROJECT_LIBRARY_ALEXANDROVA_GENERATORIMPL_HPP
 
+#include <memory>
 #include <random>
 #include "../library/include/interfaces/Generator.hpp"
 #include "../library/include/interfaces/Timer.hpp"
