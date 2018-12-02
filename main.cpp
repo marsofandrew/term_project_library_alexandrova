@@ -34,7 +34,7 @@ std::vector<std::shared_ptr<Processor>> createProcessors(const std::vector<doubl
 int main()
 {
   std::shared_ptr<Logger> logger = std::make_shared<LoggerImpl>(&std::cout);
-  std::shared_ptr<WorkCondition> condition = std::make_shared<Condition>(25, logger);
+  std::shared_ptr<WorkCondition> condition = std::make_shared<Condition>(1000, logger);
 
   std::shared_ptr<SimpleGeneratorPool> generatorPool = std::make_shared<SimpleGeneratorPool>(
     SupportiveFunctions::createGenerators({1, 2, 3, 4}, 1, 3));
