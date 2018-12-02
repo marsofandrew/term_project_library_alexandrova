@@ -22,6 +22,8 @@ public:
 
   virtual Timer::time getTimeToFinishProcess() const = 0;
 
+  virtual bool hasFree() const = 0;
+
   virtual bool hasFinishedProcesses() const = 0;
 };
 

@@ -41,7 +41,7 @@ void Worker::run()
       order->setFinishProcessingTime(timer_->getCurrentTime());
     }
 
-    if (processorsPool_->isFree() && !buffer_->isEmpty()) {
+    if (processorsPool_->hasFree() && !buffer_->isEmpty()) {
       std::shared_ptr<Order> order = buffer_->getElement();
       buffer_->pop();
       order->setGettingTime(timer_->getCurrentTime());

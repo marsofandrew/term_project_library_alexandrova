@@ -57,11 +57,11 @@ Timer::time ProcessorPoolImpl::getTimeToNextEvent() const
 bool ProcessorPoolImpl::isFree() const
 {
   for (const std::shared_ptr<Processor> &processor: processors_) {
-    if (processor->isFree()) {
-      return true;
+    if (!processor->isFree()) {
+      return false;
     }
   }
-  return false;
+  return true;
 }
 
 bool ProcessorPoolImpl::isProcess() const
@@ -170,4 +170,14 @@ Timer::time ProcessorPoolImpl::getTimeToFinishProcess() const
   auto min = std::min_element(times.begin(), times.end());
 
   return *min;
+}
+
+bool ProcessorPoolImpl::hasFree() const
+{
+  for (const std::shared_ptr<Processor> &processor: processors_) {
+    if (processor->isFree()) {
+      return true;
+    }
+  }
+  return false;
 }
