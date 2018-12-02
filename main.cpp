@@ -8,9 +8,28 @@
 #include "library/include/SimpleTimer.hpp"
 #include "code/LoggerImpl.hpp"
 #include "library/include/Condition.hpp"
-#include "code/SupportiveFunctions.hpp"
-#include "library/include/SimpleGeneratorPool.hpp"
-#include "code/ProcessorPoolImpl.hpp"
+
+
+std::vector<std::shared_ptr<Generator>>
+//minTime and maxTime are alpha and beta for normally distributed value
+createGenerators(const std::vector<int> &priorities, Timer::time minTime, Timer::time maxTime)
+{
+  std::vector<std::shared_ptr<Generator>> vector;
+  for (int priority : priorities) {
+    vector.emplace_back(std::make_shared<GeneratorImpl>(GeneratorImpl(priority, minTime, maxTime)));
+  }
+  return vector;
+}
+
+std::vector<std::shared_ptr<Processor>> createProcessors(const std::vector<double> lambdas)
+{
+  std::vector<std::shared_ptr<Processor>> vector;
+  for (double lambda:lambdas) {
+    vector.emplace_back(std::make_shared<ProcessorImpl>(ProcessorImpl(lambda)));
+  }
+  return vector;
+}
+
 
 int main()
 {
