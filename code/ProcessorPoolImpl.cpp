@@ -14,7 +14,7 @@ unsigned long ProcessorPoolImpl::getId() const
 
 bool ProcessorPoolImpl::process(const std::shared_ptr<Order> &order)
 {
-  if (processors_.empty() || !isFree()) {
+  if (processors_.empty() || !hasFree()) {
     return false;
   }
 
