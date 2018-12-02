@@ -38,6 +38,7 @@ void Worker::run()
     if (processorsPool_->hasFinishedProcesses()) {
       std::shared_ptr<Order> order = processorsPool_->free();
       logger_->sendProcessedOrder(order);
+      order->setFinishProcessingTime(timer_->getCurrentTime());
     }
 
     if (processorsPool_->isFree() && !buffer_->isEmpty()) {
@@ -49,7 +50,6 @@ void Worker::run()
       logger_->sendGetOrderFromBuffer(order);
       processorsPool_->process(order);
       order->setStartProcessTime(timer_->getCurrentTime());
-      order->setProcessTime(processor->getTimeToNextEvent());
       logger_->sendOrderToProcessor(order, processor);
     }
 

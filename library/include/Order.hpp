@@ -24,7 +24,7 @@ public:
 
   void setStartProcessTime(Timer::time startProcessTime);
 
-  void setProcessTime(Timer::time processTime);
+  void setFinishProcessingTime(Timer::time finishProcessingTime);
 
   void setProcessor(const std::shared_ptr<Processor> &processor);
 
@@ -48,6 +48,8 @@ public:
 
   Timer::time getRefusedTime() const;
 
+  Timer::time getFinishProcessingTime() const;
+
 private:
   unsigned long id_;
   long customNumber_;
@@ -57,7 +59,7 @@ private:
   Timer::time insertionTime_;
   Timer::time gettingTime_;
   Timer::time startProcessTime_;
-  Timer::time processTime_;
+  Timer::time finishProcessingTime_;
   Timer::time refusedTime_;
   std::shared_ptr<Processor> processor_;
   static unsigned long ID;

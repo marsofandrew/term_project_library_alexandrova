@@ -8,7 +8,9 @@
 #include "library/include/SimpleTimer.hpp"
 #include "code/LoggerImpl.hpp"
 #include "library/include/Condition.hpp"
-
+#include "library/include/SimpleGeneratorPool.hpp"
+#include "code/SupportiveFunctions.hpp"
+#include "code/ProcessorPoolImpl.hpp"
 
 std::vector<std::shared_ptr<Generator>>
 //minTime and maxTime are alpha and beta for normally distributed value
