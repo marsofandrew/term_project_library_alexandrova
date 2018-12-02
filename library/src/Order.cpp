@@ -8,7 +8,7 @@ Order::Order(long customNumber, int priority,
   sourceGenerator_(sourceGenerator),
   generatedTime_(generatedTime),
   startProcessTime_(-1),
-  processTime_(-1),
+  finishProcessingTime_(-1),
   insertionTime_(-1),
   gettingTime_(-1),
   refusedTime_(-1) {}
@@ -33,9 +33,9 @@ long Order::getNumber() const
   return customNumber_;
 }
 
-void Order::setProcessTime(Timer::time processTime)
+void Order::setFinishProcessingTime(Timer::time finishProcessingTime)
 {
-  processTime_ = processTime;
+  finishProcessingTime_ = finishProcessingTime;
 }
 
 void Order::setStartProcessTime(Timer::time startProcessTime)
@@ -90,12 +90,17 @@ Timer::time Order::getStartProcessTime() const
 
 Timer::time Order::getProcessTime() const
 {
-  return processTime_;
+  return finishProcessingTime_ - startProcessTime_;
 }
 
 Timer::time Order::getRefusedTime() const
 {
   return refusedTime_;
+}
+
+Timer::time Order::getFinishProcessingTime() const
+{
+  return finishProcessingTime_;
 }
 
 
