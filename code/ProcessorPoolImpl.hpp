@@ -36,6 +36,8 @@ public:
 
   std::size_t getAmountOfProcessedOrders() const override;
 
+  bool hasFree() const override;
+
 private:
   unsigned long id_;
   std::vector<std::shared_ptr<Processor>> processors_;
