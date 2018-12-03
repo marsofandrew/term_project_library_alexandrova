@@ -80,7 +80,7 @@ Timer::time Worker::getTimeToNextEvent()
     times.emplace_back(generatorsPool_->getTimeToNextEvent());
   }
 
-  if (!buffer_->isEmpty() || !condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_)) {
+  if (!buffer_->isEmpty() || (!buffer_->isEmpty() && !condition_->shouldGenerateNewOrders(timer_, generatorsPool_, processorsPool_, buffer_))) {
     times.emplace_back(processorsPool_->getTimeToNextEvent());
   }
 

@@ -8,7 +8,7 @@ bool Condition::shouldContinue(const std::shared_ptr<Timer> &timer, const std::s
 {
   logger_->sendMessage(Logger::INFO, "processed orders: " +
                                      std::to_string(processorPool->getAmountOfProcessedOrders()));
-  return (generatorPool->getAmountOfGeneratedOrders() < amount_) || !(buffer->isEmpty()) || (processorPool->hasFinishedProcesses());
+  return (generatorPool->getAmountOfGeneratedOrders() < amount_) || !(buffer->isEmpty()) || !(processorPool->isFree());
 }
 
 bool Condition::shouldGenerateNewOrders(const std::shared_ptr<Timer> &timer,
