@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <memory>
+
+
 #include "../include/Worker.hpp"
 #include "../include/interfaces/Buffer.hpp"
 #include "../include/Order.hpp"
@@ -67,7 +69,9 @@ void Worker::run()
       } else {
         orderGenerated->setInsertTime(timer_->getCurrentTime());
         logger_->sendBufferedOrder(orderGenerated);
+        int igg=5;
       }
+
     }
   }
 }

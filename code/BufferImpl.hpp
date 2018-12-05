@@ -18,6 +18,7 @@ public:
   std::shared_ptr<Order> getElement() const override;
 
   bool isEmpty() override;
+  std::list<std::shared_ptr<Order>> getBufferQueue();
 
 private:
   std::size_t size_;
