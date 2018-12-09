@@ -9,6 +9,7 @@ std::shared_ptr<Order> BufferImpl::add(const std::shared_ptr<Order> &order)
 {
   if (queue_.size() >= size_) {
     return addWhenBufferFull(order);
+
   }
 
   queue_.push_back(order);
@@ -50,4 +51,9 @@ std::shared_ptr<Order> BufferImpl::addWhenBufferFull(const std::shared_ptr<Order
   }
 
   return order;
+}
+
+std::list<std::shared_ptr<Order>> BufferImpl::getBufferQueue()
+{
+    return queue_;
 }

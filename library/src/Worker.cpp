@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <memory>
+
+
 #include "../include/Worker.hpp"
 #include "../include/interfaces/Buffer.hpp"
 #include "../include/Order.hpp"
@@ -37,8 +39,8 @@ void Worker::run()
 
     if (processorsPool_->hasFinishedProcesses()) {
       std::shared_ptr<Order> order = processorsPool_->free();
-      logger_->sendProcessedOrder(order);
       order->setFinishProcessingTime(timer_->getCurrentTime());
+      logger_->sendProcessedOrder(order);
     }
 
     if (processorsPool_->hasFree() && !buffer_->isEmpty()) {
@@ -62,12 +64,14 @@ void Worker::run()
       logger_->sendAddingOrderToBuffer(orderGenerated);
       auto order = buffer_->add(orderGenerated);
       if (order != nullptr) {
-        logger_->sendRefusedOrder(order);
         order->setRefusedTime(timer_->getCurrentTime());
+        logger_->sendRefusedOrder(order);
       } else {
         orderGenerated->setInsertTime(timer_->getCurrentTime());
         logger_->sendBufferedOrder(orderGenerated);
+        int igg=5;
       }
+
     }
   }
 }
