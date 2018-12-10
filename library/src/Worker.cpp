@@ -63,13 +63,19 @@ void Worker::run()
       logger_->sendCreatedOrder(orderGenerated);
       logger_->sendAddingOrderToBuffer(orderGenerated);
       auto order = buffer_->add(orderGenerated);
+
       if (order != nullptr) {
         order->setRefusedTime(timer_->getCurrentTime());
         logger_->sendRefusedOrder(order);
+
+        if(order!=orderGenerated){
+          orderGenerated->setInsertTime(timer_->getCurrentTime());
+          logger_->sendBufferedOrder(orderGenerated);
+        }
+
       } else {
         orderGenerated->setInsertTime(timer_->getCurrentTime());
         logger_->sendBufferedOrder(orderGenerated);
-        int igg=5;
       }
 
     }
